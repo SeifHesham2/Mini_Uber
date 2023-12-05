@@ -1,11 +1,12 @@
 import java.sql.Time;
 import java.time.LocalDateTime;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Trip {
         private int tripID;
         private String pickupPoint;
         private String destination;
-        private Time tripTime;
+        private LocalDateTime tripTime;
         private double tripPrice;
         private boolean isFinished;
         private PaymentMethod paymentMethod;
@@ -36,12 +37,13 @@ public class Trip {
         this.destination = destination;
     }
 
-    public Time getTripTime() {
+
+    public LocalDateTime getTripTime() {
         return tripTime;
     }
 
-    public void setTripTime(Time tripTime) {
-        this.tripTime = tripTime;
+    public void setTripTime(String tripTime) {
+        this.tripTime = LocalDateTime.parse(tripTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     public double getTripPrice() {

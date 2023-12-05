@@ -1,7 +1,7 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+import java.sql.Timestamp;
 public class InsertToDatabase {
     public static void insertEmployee(Employee employee) throws SQLException
     {
@@ -9,14 +9,13 @@ public class InsertToDatabase {
         Connection connection = dataBaseConnector.connectToDatabase();
         try
         {
-            String sql = "INSERT INTO employees (firstname, lastname, email, phone , employeePassword) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO employees (firstname, lastname, phone ) VALUES (?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql))
             {
                 statement.setString(1, employee.getFirstName());
                 statement.setString(2, employee.getLastName());
-                statement.setString(3, employee.getEmail());
-                statement.setString(4, employee.getPhone());
-                statement.setString(5, employee.getPassword());
+                statement.setString(3, employee.getPhone());
+
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0)
                 {
@@ -66,12 +65,13 @@ public class InsertToDatabase {
         Connection connection = dataBaseConnector.connectToDatabase();
         try
         {
-            String sql = "INSERT INTO drivers (pickup_point , destination , trip_time , trip_price ,payment_method, customerid, driverid) VALUES ( ? , ? , ? , ? , ?,?, ?)";
+            String sql = "INSERT INTO trips (pickup_point , destination , trip_time , trip_price ) VALUES ( ? , ? , ? , ?)";
             try(PreparedStatement statement = connection.prepareStatement(sql))
             {
                 statement.setString(1,trip.getPickupPoint());
                 statement.setString(2, trip.getDestination());
-                statement.setTime(3,trip.getTripTime());
+                Timestamp timestamp = Timestamp.valueOf(trip.getTripTime());
+                statement.setTimestamp(3,timestamp);
                 statement.setDouble(4, trip.getTripPrice());
                 int rowsInserted= statement.executeUpdate();
                 if (rowsInserted > 0)

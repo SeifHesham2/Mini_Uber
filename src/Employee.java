@@ -9,8 +9,8 @@ public class Employee {
     private int employeeID;
     private  String firstName;
     private  String lastName;
-    private  String email;
-    private  String Password;
+    final private  String email = "admin@miniuber.com";
+    final private  String Password = "admin";
     private  String phone;
 
     public String getPhone() {
@@ -49,18 +49,8 @@ public class Employee {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return Password;
     }
-
-    public void setPassword(String password) {
-        Password = password;
-    }
-
-
 
 }
