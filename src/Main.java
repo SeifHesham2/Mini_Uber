@@ -7,11 +7,11 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         Employee seif = new Employee();
         seif.setFirstName("mohamed");
-        seif.setEmail("mohamedehab@gmail.com");
+        seif.setEmail("mohamedashraf@gmail.com");
         seif.setPassword("123");
-        seif.setLastName("zahran");
-        seif.setPhone("01099688108");
-        Employee.insertEmployee(seif);
+        seif.setLastName("ashraf");
+        seif.setPhone("01099688109");
+        InsertToDatabase.insertEmployee(seif);
 
     }
 }
