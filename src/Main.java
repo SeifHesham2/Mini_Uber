@@ -5,13 +5,13 @@ import java.sql.SQLException;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) throws SQLException {
-        Employee seif = new Employee();
-        seif.setFirstName("mohamed");
-        seif.setEmail("mohamedashraf@gmail.com");
-        seif.setPassword("123");
-        seif.setLastName("ashraf");
-        seif.setPhone("01099688109");
-        InsertToDatabase.insertEmployee(seif);
+        Employee taftaf= new Employee();
+        taftaf.setFirstName("Mustafa");
+        taftaf.setEmail("mustafaHosny2002@gmail.com");
+        taftaf.setPassword("123");
+        taftaf.setLastName("Hosny");
+        taftaf.setPhone("01000512412");
+        InsertToDatabase.insertEmployee(taftaf);
 
     }
 }
