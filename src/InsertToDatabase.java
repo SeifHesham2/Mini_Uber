@@ -88,4 +88,34 @@ public class InsertToDatabase {
         }
 
     }
+    public static void InsertCar(Car car) throws  SQLException
+    {
+        DataBaseConnector dataBaseConnector= new DataBaseConnector();
+        Connection connection = dataBaseConnector.connectToDatabase();
+        try
+        {
+            String sql = "INSERT INTO cars (plate_number , car_type , car_color , car_model , number_of_seats  ) VALUES ( ? , ? , ? , ? , ?)";
+            try(PreparedStatement statement = connection.prepareStatement(sql))
+            {
+                statement.setString(1,car.getPlateNumber());
+                statement.setString(2, car.getCarType());
+                statement.setString(3,car.getCarColor());
+                statement.setString(4,car.getCarModel());
+                statement.setInt(5,car.getNumberOfSeats());
+                int rowsInserted= statement.executeUpdate();
+                if (rowsInserted > 0)
+                {
+                    System.out.println("car inserted successfully!");
+                } else
+                {
+                    System.out.println("Failed to insert car.");
+                }
+            }
+        }
+        finally {
+            dataBaseConnector.closeConnection();
+        }
+
+    }
+
 }

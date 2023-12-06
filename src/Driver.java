@@ -4,7 +4,6 @@ public class Driver  extends Person {
     private  int rating;
     private  boolean haveCar;
 
-
     public int getNumberOfTrips() {
         return NumberOfTrips;
     }
