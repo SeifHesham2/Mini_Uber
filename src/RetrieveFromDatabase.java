@@ -19,7 +19,10 @@ public class RetrieveFromDatabase {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 try (ResultSet rS = statement.executeQuery()) {
                     while (rS.next()) {
-                        Trip trip = new Trip(rS.getInt("tripID"), rS.getString("pickup_point"), rS.getString("destination"), rS.getTimestamp("trip_time").toLocalDateTime(), rS.getDouble("trip_price"), PaymentFactory.getPaymentMethod("payment_method"), rS.getInt("customerID"));
+                        Trip trip = new Trip(rS.getInt("tripID"), rS.getString("pickup_point"),
+                                rS.getString("destination"), rS.getTimestamp("trip_time").toLocalDateTime(),
+                                rS.getDouble("trip_price"), PaymentFactory.getPaymentMethod("payment_method"),
+                                rS.getInt("customerID"));
                         trips.add(trip);
                     }
                 }
@@ -33,6 +36,7 @@ public class RetrieveFromDatabase {
 
         return trips;
     }
+
     public static List<Car> retrieveAvailableCars() {
         List<Car> carList = new ArrayList<>();
 
@@ -44,7 +48,9 @@ public class RetrieveFromDatabase {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 try (ResultSet rS = statement.executeQuery()) {
                     while (rS.next()) {
-                        Car car = new Car(rS.getInt("carID"),rS.getInt("number_of_seats"), rS.getString("plate_number"), rS.getString("car_type"),rS.getString("car_color"),rS.getString("car_model"),rS.getInt("driverID"));
+                        Car car = new Car(rS.getInt("carID"), rS.getInt("number_of_seats"),
+                                rS.getString("plate_number"), rS.getString("car_type"), rS.getString("car_color"),
+                                rS.getString("car_model"), rS.getInt("driverID"));
                         carList.add(car);
                     }
                 }
@@ -70,7 +76,8 @@ public class RetrieveFromDatabase {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 try (ResultSet rS = statement.executeQuery()) {
                     while (rS.next()) {
-                        Complaints complaints = new Complaints(rS.getInt("complaintid"),rS.getInt("tripid"),rS.getString("Description"),rS.getBoolean("opened"));
+                        Complaints complaints = new Complaints(rS.getInt("complaintid"), rS.getInt("tripid"),
+                                rS.getString("Description"), rS.getBoolean("opened"));
                         complaintsList.add(complaints);
                     }
                 }
@@ -84,7 +91,8 @@ public class RetrieveFromDatabase {
 
         return complaintsList;
     }
-    public static List<Trip> retrieveTripsHistory(int id) {
+
+    public static List<Trip> retrieveDriverTripsHistory(int id) {
         List<Trip> trips = new ArrayList<>();
 
         DataBaseConnector dataBaseConnector = new DataBaseConnector();
@@ -96,7 +104,40 @@ public class RetrieveFromDatabase {
                 statement.setInt(1, id);
                 try (ResultSet rS = statement.executeQuery()) {
                     while (rS.next()) {
-                        Trip trip = new Trip(rS.getInt("tripID"), rS.getString("pickup_point"), rS.getString("destination"), rS.getTimestamp("trip_time").toLocalDateTime(), rS.getDouble("trip_price"), rS.getBoolean("is_finished"), PaymentFactory.getPaymentMethod("payment_method"), rS.getInt("customerID"));
+                        Trip trip = new Trip(rS.getInt("tripID"), rS.getString("pickup_point"),
+                                rS.getString("destination"), rS.getTimestamp("trip_time").toLocalDateTime(),
+                                rS.getDouble("trip_price"), rS.getBoolean("is_finished"),
+                                PaymentFactory.getPaymentMethod("payment_method"), rS.getInt("customerID"));
+                        trips.add(trip);
+                    }
+                }
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } finally {
+            dataBaseConnector.closeConnection();
+        }
+
+        return trips;
+    }
+
+    public static List<Trip> retrieveCustomerTripsHistory(int id) {
+        List<Trip> trips = new ArrayList<>();
+
+        DataBaseConnector dataBaseConnector = new DataBaseConnector();
+        Connection connection = dataBaseConnector.connectToDatabase();
+        try {
+            String sql = "SELECT * FROM trips WHERE customerID = ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, id);
+                try (ResultSet rS = statement.executeQuery()) {
+                    while (rS.next()) {
+                        Trip trip = new Trip(rS.getInt("tripID"), rS.getString("pickup_point"),
+                                rS.getString("destination"), rS.getTimestamp("trip_time").toLocalDateTime(),
+                                rS.getDouble("trip_price"), rS.getBoolean("is_finished"),
+                                PaymentFactory.getPaymentMethod("payment_method"), rS.getInt("customerID"));
                         trips.add(trip);
                     }
                 }
