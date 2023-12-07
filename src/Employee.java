@@ -56,6 +56,7 @@ public class Employee extends Person {
            System.out.println(c.getPlateNumber());
            System.out.println(c.getCarModel());
            System.out.println(c.getCarColor());
+           System.out.println("________________________________________________________");
        }
         driver.setHaveCar(false);
         UpdateDataBase.UpdateCarDriverID(driver.getId());
