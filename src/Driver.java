@@ -3,12 +3,11 @@ import java.util.*;
 
 public class Driver extends Person {
 
-    private  int NumberOfTrips;
-    private  int rating;
-    private  boolean haveCar;
+    private int NumberOfTrips;
+    private int rating;
+    private boolean haveCar;
 
-    public List<Trip> ViewAvailableTrips()
-    {
+    public List<Trip> ViewAvailableTrips() {
         List<Trip> trips = new ArrayList<>();
 
         trips = RetrieveFromDatabase.retrieveAvailableTrips();
@@ -19,8 +18,7 @@ public class Driver extends Person {
         Map<Integer, Trip> hashMap = new HashMap<>();
 
         List<Trip> trips = ViewAvailableTrips();
-        for (Trip trip : trips)
-        {
+        for (Trip trip : trips) {
             hashMap.put(trip.getTripID(), trip);
 
             System.out.println("Trip ID: " + trip.getTripID());
@@ -34,7 +32,8 @@ public class Driver extends Person {
         }
 
         // Enter trip ID to select it to be assigned to this driver.
-        // Can implement a try/catch to prevent the driver from inserting characters other than numbers
+        // Can implement a try/catch to prevent the driver from inserting characters
+        // other than numbers
         Scanner sc = new Scanner(System.in);
         int tripID = sc.nextInt();
 
@@ -45,10 +44,9 @@ public class Driver extends Person {
         UpdateDataBase.UpdateTrip(getId(), tripID);
     }
 
-    public List<Trip> ViewTripHistory(int id)
-    {
+    public List<Trip> ViewTripHistory(int id) {
         List<Trip> trips = new ArrayList<>();
-        trips = RetrieveFromDatabase.retrieveTripsHistory(id);
+        trips = RetrieveFromDatabase.retrieveDriverTripsHistory(id);
         return trips;
     }
 

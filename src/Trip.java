@@ -2,6 +2,7 @@ import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 public class Trip {
     private int tripID;
     private String pickupPoint;
@@ -13,12 +14,12 @@ public class Trip {
     private int customerID;
     private int driverID;
 
-    public Trip()
-    {
+    public Trip() {
 
     }
 
-    public Trip(int tripID, String pickupPoint, String destination, LocalDateTime tripTime, double tripPrice, PaymentMethod paymentMethod, int customerID) {
+    public Trip(int tripID, String pickupPoint, String destination, LocalDateTime tripTime, double tripPrice,
+            PaymentMethod paymentMethod, int customerID) {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
@@ -28,7 +29,8 @@ public class Trip {
         this.customerID = customerID;
     }
 
-    public Trip(int tripID, String pickupPoint, String destination, LocalDateTime tripTime, double tripPrice, boolean isFinished, PaymentMethod paymentMethod, int customerID) {
+    public Trip(int tripID, String pickupPoint, String destination, LocalDateTime tripTime, double tripPrice,
+            boolean isFinished, PaymentMethod paymentMethod, int customerID) {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
@@ -62,7 +64,6 @@ public class Trip {
     public void setDestination(String destination) {
         this.destination = destination;
     }
-
 
     public LocalDateTime getTripTime() {
         return tripTime;

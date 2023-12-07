@@ -4,6 +4,9 @@ public class Complaints {
     private String description;
     private boolean opened;
 
+    public Complaints() {
+    }
+
     public Complaints(int complaintID, int tripID, String description, boolean opened) {
         this.complaintID = complaintID;
         this.tripID = tripID;
