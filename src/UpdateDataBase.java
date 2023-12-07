@@ -3,7 +3,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class UpdateDataBase {
-    public static void UpdateCar(Car car , Driver driver) throws SQLException {
+    public static void UpdateCar(int driverID, int carID) throws SQLException {
         DataBaseConnector dataBaseConnector = new DataBaseConnector();
         Connection connection = dataBaseConnector.connectToDatabase();
 
@@ -11,10 +11,8 @@ public class UpdateDataBase {
             String sql = "UPDATE cars SET DriverId = ? WHERE carId = ?";
 
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                System.out.println(driver.getId());
-                System.out.println(car.getCarID());
-                statement.setInt(1, driver.getId());
-                statement.setInt(2, car.getCarID());
+                statement.setInt(1, driverID);
+                statement.setInt(2, carID);
                 int rowsUpdated = statement.executeUpdate();
                 if (rowsUpdated > 0) {
                     System.out.println("Car updated successfully!");
@@ -26,7 +24,7 @@ public class UpdateDataBase {
             dataBaseConnector.closeConnection();
         }
     }
-    public static void UpdateDriver( Driver driver) throws SQLException {
+    public static void UpdateDriver(Boolean haveCar, int driverID) throws SQLException {
         DataBaseConnector dataBaseConnector = new DataBaseConnector();
         Connection connection = dataBaseConnector.connectToDatabase();
 
@@ -34,13 +32,35 @@ public class UpdateDataBase {
             String sql = "UPDATE drivers SET have_car = ? WHERE driverID = ?";
 
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setBoolean(1,driver.isHaveCar());
-                statement.setInt(2, driver.getId());
+                statement.setBoolean(1, haveCar);
+                statement.setInt(2, driverID);
                 int rowsUpdated = statement.executeUpdate();
                 if (rowsUpdated > 0) {
                     System.out.println("driver updated successfully!");
                 } else {
                     System.out.println("Failed to update driver.");
+                }
+            }
+        } finally {
+            dataBaseConnector.closeConnection();
+        }
+    }
+
+    public static void UpdateTrip(int driverID, int tripID) throws SQLException {
+        DataBaseConnector dataBaseConnector = new DataBaseConnector();
+        Connection connection = dataBaseConnector.connectToDatabase();
+
+        try {
+            String sql = "UPDATE trips SET driverID = ? WHERE tripID = ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, driverID);
+                statement.setInt(2, tripID);
+                int rowsUpdated = statement.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("Trip updated successfully!");
+                } else {
+                    System.out.println("Failed to update trip.");
                 }
             }
         } finally {

@@ -10,7 +10,7 @@ public class DataBaseConnector {
 
     public Connection connectToDatabase() {
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/MiniUber", "root", "123");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/MiniUber", "root", "12345");
             System.out.println("Connected to the database");
             return connection;
         } catch (SQLException e) {
