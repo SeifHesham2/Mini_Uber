@@ -24,6 +24,46 @@ public class UpdateDataBase {
             dataBaseConnector.closeConnection();
         }
     }
+    public static void UpdateCarDriverID(int driverID) throws SQLException {
+        DataBaseConnector dataBaseConnector = new DataBaseConnector();
+        Connection connection = dataBaseConnector.connectToDatabase();
+
+        try {
+            String sql = "UPDATE cars SET DriverId = NULL WHERE driverID = ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, driverID);
+                int rowsUpdated = statement.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("CarDriverID updated successfully!");
+                } else {
+                    System.out.println("Failed to update CarDriverID.");
+                }
+            }
+        } finally {
+            dataBaseConnector.closeConnection();
+        }
+    }
+    public static void UpdateComplaintsStatus(int complaintsID) throws SQLException {
+        DataBaseConnector dataBaseConnector = new DataBaseConnector();
+        Connection connection = dataBaseConnector.connectToDatabase();
+
+        try {
+            String sql = "UPDATE complaints SET opened = 1 WHERE complaintId = ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, complaintsID);
+                int rowsUpdated = statement.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("Complaints status updated successfully!");
+                } else {
+                    System.out.println("Failed to update Complaints status.");
+                }
+            }
+        } finally {
+            dataBaseConnector.closeConnection();
+        }
+    }
     public static void UpdateDriver(Boolean haveCar, int driverID) throws SQLException {
         DataBaseConnector dataBaseConnector = new DataBaseConnector();
         Connection connection = dataBaseConnector.connectToDatabase();

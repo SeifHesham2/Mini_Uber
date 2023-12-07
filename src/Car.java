@@ -12,13 +12,14 @@ public class Car {
 
     }
 
-    public Car(int numberOfSeats, String plateNumber, String carType, String carColor, String carModel, int driverID) {
+    public Car(int carID ,int numberOfSeats, String plateNumber, String carType, String carColor, String carModel, int driverID) {
         this.numberOfSeats = numberOfSeats;
         this.plateNumber = plateNumber;
         this.carType = carType;
         this.carColor = carColor;
         this.carModel = carModel;
         this.driverID = driverID;
+        this.carID=carID;
     }
 
     public Car(int numberOfSeats, String plateNumber, String carType, String carColor, String carModel) {
