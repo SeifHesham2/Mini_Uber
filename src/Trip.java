@@ -3,15 +3,41 @@ import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Trip {
-        private int tripID;
-        private String pickupPoint;
-        private String destination;
-        private LocalDateTime tripTime;
-        private double tripPrice;
-        private boolean isFinished;
-        private PaymentMethod paymentMethod;
-        private int customerID;
-        private int driverID;
+    private int tripID;
+    private String pickupPoint;
+    private String destination;
+    private LocalDateTime tripTime;
+    private double tripPrice;
+    private boolean isFinished;
+    private PaymentMethod paymentMethod;
+    private int customerID;
+    private int driverID;
+
+    public Trip()
+    {
+
+    }
+
+    public Trip(int tripID, String pickupPoint, String destination, LocalDateTime tripTime, double tripPrice, PaymentMethod paymentMethod, int customerID) {
+        this.tripID = tripID;
+        this.pickupPoint = pickupPoint;
+        this.destination = destination;
+        this.tripTime = tripTime;
+        this.tripPrice = tripPrice;
+        this.paymentMethod = paymentMethod;
+        this.customerID = customerID;
+    }
+
+    public Trip(int tripID, String pickupPoint, String destination, LocalDateTime tripTime, double tripPrice, boolean isFinished, PaymentMethod paymentMethod, int customerID) {
+        this.tripID = tripID;
+        this.pickupPoint = pickupPoint;
+        this.destination = destination;
+        this.tripTime = tripTime;
+        this.tripPrice = tripPrice;
+        this.isFinished = isFinished;
+        this.paymentMethod = paymentMethod;
+        this.customerID = customerID;
+    }
 
     public int getTripID() {
         return tripID;

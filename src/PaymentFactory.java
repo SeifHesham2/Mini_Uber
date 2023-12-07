@@ -1,6 +1,6 @@
 public class PaymentFactory
 {
-    public  PaymentMethod getPaymentMethod(String PaymentType) {
+    public static PaymentMethod getPaymentMethod(String PaymentType) {
         if(PaymentType.equalsIgnoreCase("visa")){
             return  new Visa();
         }
@@ -11,7 +11,8 @@ public class PaymentFactory
             return  new Cash();
         }
         else {
-            throw new IllegalArgumentException("this PaymentMethod is not supported yet !");
+            //throw new IllegalArgumentException("this PaymentMethod is not supported yet !");
+            return null;
         }
     }
 }
