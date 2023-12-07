@@ -33,7 +33,57 @@ public class RetrieveFromDatabase {
 
         return trips;
     }
+    public static List<Car> retrieveAvailableCars() {
+        List<Car> carList = new ArrayList<>();
 
+        DataBaseConnector dataBaseConnector = new DataBaseConnector();
+        Connection connection = dataBaseConnector.connectToDatabase();
+        try {
+            String sql = "SELECT * FROM cars WHERE driverID IS NULL;";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                try (ResultSet rS = statement.executeQuery()) {
+                    while (rS.next()) {
+                        Car car = new Car(rS.getInt("carID"),rS.getInt("number_of_seats"), rS.getString("plate_number"), rS.getString("car_type"),rS.getString("car_color"),rS.getString("car_model"),rS.getInt("driverID"));
+                        carList.add(car);
+                    }
+                }
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } finally {
+            dataBaseConnector.closeConnection();
+        }
+
+        return carList;
+    }
+
+    public static List<Complaints> retrieveComplaints() {
+        List<Complaints> complaintsList = new ArrayList<>();
+
+        DataBaseConnector dataBaseConnector = new DataBaseConnector();
+        Connection connection = dataBaseConnector.connectToDatabase();
+        try {
+            String sql = "SELECT * FROM complaints;";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                try (ResultSet rS = statement.executeQuery()) {
+                    while (rS.next()) {
+                        Complaints complaints = new Complaints(rS.getInt("complaintid"),rS.getInt("tripid"),rS.getString("Description"),rS.getBoolean("opened"));
+                        complaintsList.add(complaints);
+                    }
+                }
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } finally {
+            dataBaseConnector.closeConnection();
+        }
+
+        return complaintsList;
+    }
     public static List<Trip> retrieveTripsHistory(int id) {
         List<Trip> trips = new ArrayList<>();
 
