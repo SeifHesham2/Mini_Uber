@@ -24,7 +24,7 @@ public class Main {
      * Car newCar = employee.AddCar(4, "Kodkocs1", "SUV", "RED", "2019");
      * employee.AssignCarToDriver(driver,newCar);
      */
-
+    ////////////////// CUSTOMER TESTING//////////////
     Customer customer = new Customer();
     customer.setFirstName("Ashraf");
     customer.setLastName("ABO ASHRAF");
@@ -32,8 +32,22 @@ public class Main {
     customer.setPhone("01099688147");
     customer.setPassword("123");
     InsertToDatabase.InsertCustomer(customer);
-    PaymentMethod paymentMethod = new Visa();
-    customer.RequestTrip("East", "West", "2023-12-07 22:00:00", 60, paymentMethod, 5);
+    PaymentMethod paymentMethod = PaymentFactory.getPaymentMethod("Visa");
+    customer.RequestTrip("East", "West", "2023-12-07 22:00:00", 60, paymentMethod, customer.getId());
+    customer.RequestTrip("Baba", "Mama", "2023-12-07 21:00:00", 90, paymentMethod, customer.getId());
+
+    List<Trip> tripsList = customer.PreviousTripsDetails(customer.getId());
+    for (Trip trip : tripsList) {
+      System.out.println(trip.getTripID());
+      System.out.println(trip.getDestination());
+      System.out.println(trip.getPickupPoint());
+      System.out.println(trip.getTripPrice());
+    }
+
+    customer.SendComplaint("BAD DRIVER TALA3 ro5sa ezayy ?", 12);
+
+    ////////////////// CUSTOMER TESTING//////////////
+
     // Trip tripp = new Trip();
     // tripp.setDestination("Mama");
     // tripp.setPickupPoint("Baba");
