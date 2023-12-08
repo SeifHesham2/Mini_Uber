@@ -7,24 +7,26 @@ import java.util.List;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
   public static void main(String[] args) throws SQLException {
-    /*
-     * Driver driver = new Driver();
-     * driver.setHaveCar(false);
-     * driver.setRating(4);
-     * driver.setEmail("seifhesham20d30@gmail.com");
-     * driver.setFirstName("seif");
-     * driver.setNumberOfTrips(50);
-     * driver.setPhone("01099688147");
-     * driver.setLastName("hesham");
-     * driver.setPassword("123");
-     * InsertToDatabase.InsertDriver(driver);
-     * 
-     * Employee employee = new Employee();
-     * 
-     * Car newCar = employee.AddCar(4, "Kodkocs1", "SUV", "RED", "2019");
-     * employee.AssignCarToDriver(driver,newCar);
-     */
-    ////////////////// CUSTOMER TESTING//////////////
+   /*   Driver driver = new Driver();
+      driver.setHaveCar(false); driver.setRating(4);
+      driver.setEmail("seifhesham20d30@gmail.com");
+      driver.setFirstName("seif");
+      driver.setNumberOfTrips(50);
+      driver.setPhone("01099688147");
+      driver.setLastName("hesham");
+      driver.setPassword("123");
+      InsertToDatabase.InsertDriver(driver);*/
+
+     //  Employee employee = new Employee();
+      //employee.AssignCarToAllDrivers();;
+      /*employee.AssignOrChangeCarToDriver(driver,false);
+      employee.AssignOrChangeCarToDriver(driver,true);*/
+
+      // Employee seif = new Employee();
+
+
+      ////////////////// CUSTOMER TESTING//////////////
+/*
     Customer customer = new Customer();
     customer.setFirstName("Ashraf");
     customer.setLastName("ABO ASHRAF");
@@ -45,6 +47,7 @@ public class Main {
     }
 
     customer.SendComplaint("BAD DRIVER TALA3 ro5sa ezayy ?", 12);
+*/
 
     ////////////////// CUSTOMER TESTING//////////////
 

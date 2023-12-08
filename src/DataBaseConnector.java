@@ -7,10 +7,19 @@ import java.sql.SQLException;
 
 public class DataBaseConnector {
     private Connection connection;
+    private static DataBaseConnector instance= null;
+
+    public static DataBaseConnector getInstance(){
+        if(instance==null){
+            instance = new DataBaseConnector();
+        }
+        return instance;
+    }
+
 
     public Connection connectToDatabase() {
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/MiniUber", "root", "1234");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/MiniUber", "root", "123");
             System.out.println("Connected to the database");
             return connection;
         } catch (SQLException e) {
