@@ -11,7 +11,7 @@ public class RetrieveFromDatabase {
     public static List<Trip> retrieveAvailableTrips() {
         List<Trip> trips = new ArrayList<>();
 
-        DataBaseConnector dataBaseConnector = new DataBaseConnector();
+        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "SELECT * FROM trips WHERE driverID IS NULL;";
@@ -40,7 +40,7 @@ public class RetrieveFromDatabase {
     public static List<Car> retrieveAvailableCars() {
         List<Car> carList = new ArrayList<>();
 
-        DataBaseConnector dataBaseConnector = new DataBaseConnector();
+        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "SELECT * FROM cars WHERE driverID IS NULL;";
@@ -68,7 +68,7 @@ public class RetrieveFromDatabase {
     public static List<Complaints> retrieveComplaints() {
         List<Complaints> complaintsList = new ArrayList<>();
 
-        DataBaseConnector dataBaseConnector = new DataBaseConnector();
+        DataBaseConnector dataBaseConnector =DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "SELECT * FROM complaints;";
@@ -91,11 +91,36 @@ public class RetrieveFromDatabase {
 
         return complaintsList;
     }
+    public static List<Driver> retrieveTheDrivers() {
+        List<Driver> driverList = new ArrayList<>();
+
+        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
+        Connection connection = dataBaseConnector.connectToDatabase();
+        try {
+            String sql = "SELECT * FROM Drivers;";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                try (ResultSet rS = statement.executeQuery()) {
+                    while (rS.next()) {
+                        Driver driver = new Driver(rS.getString("firstname"), rS.getString("lastname"),rS.getString("email"), rS.getString("driver_password") , rS.getString("phone"), rS.getInt("driverID"),rS.getInt("number_of_trips"), rS.getInt("rating"), rS.getBoolean("have_car") );
+                        driverList.add(driver);
+                    }
+                }
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } finally {
+            dataBaseConnector.closeConnection();
+        }
+
+         return driverList;
+    }
 
     public static List<Trip> retrieveDriverTripsHistory(int id) {
         List<Trip> trips = new ArrayList<>();
 
-        DataBaseConnector dataBaseConnector = new DataBaseConnector();
+        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "SELECT * FROM trips WHERE driverID = ?";
@@ -125,7 +150,7 @@ public class RetrieveFromDatabase {
     public static List<Trip> retrieveCustomerTripsHistory(int id) {
         List<Trip> trips = new ArrayList<>();
 
-        DataBaseConnector dataBaseConnector = new DataBaseConnector();
+        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "SELECT * FROM trips WHERE customerID = ?";
@@ -151,4 +176,54 @@ public class RetrieveFromDatabase {
 
         return trips;
     }
+    public static List<Customer> retrieveTheCustomers() {
+        List<Customer> customerList = new ArrayList<>();
+
+        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
+        Connection connection = dataBaseConnector.connectToDatabase();
+        try {
+            String sql = "SELECT * FROM customers;";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                try (ResultSet rS = statement.executeQuery()) {
+                    while (rS.next()) {
+                        Customer customer= new Customer(rS.getString("firstname"), rS.getString("lastname"),rS.getString("email"), rS.getString("UserPassword") , rS.getString("phone"), rS.getInt("customerID"),rS.getInt("Rating"), rS.getInt("balance") );
+                        customerList.add(customer);
+                    }
+                }
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } finally {
+            dataBaseConnector.closeConnection();
+        }
+
+        return customerList;
+    }
+    public static List<Employee> retrieveTheEmployees() {
+        List<Employee> employeeList = new ArrayList<>();
+        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
+        Connection connection = dataBaseConnector.connectToDatabase();
+        try {
+            String sql = "SELECT * FROM EMPLOYEES;";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                try (ResultSet rS = statement.executeQuery()) {
+                    while (rS.next()) {
+                        Employee employee= new Employee(rS.getString("firstname"), rS.getString("lastname"),rS.getString("email"), rS.getString("EmployeePassword") , rS.getString("phone"), rS.getInt("EmployeeID") );
+                        employeeList.add(employee);
+                    }
+                }
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } finally {
+            dataBaseConnector.closeConnection();
+        }
+
+        return employeeList;
+    }
+
 }

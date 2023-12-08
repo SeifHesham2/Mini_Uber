@@ -7,6 +7,16 @@ public class Driver extends Person {
     private int rating;
     private boolean haveCar;
 
+    public Driver() {
+    }
+
+    public Driver(String firstName, String lastName, String email, String password, String phone, int id, int numberOfTrips, int rating, boolean haveCar) {
+        super(firstName, lastName, email, password, phone, id);
+        NumberOfTrips = numberOfTrips;
+        this.rating = rating;
+        this.haveCar = haveCar;
+    }
+
     public List<Trip> ViewAvailableTrips() {
         List<Trip> trips = new ArrayList<>();
 

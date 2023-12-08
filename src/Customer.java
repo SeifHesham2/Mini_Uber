@@ -6,6 +6,15 @@ public class Customer extends Person {
     private int rating;
     private double balance;
 
+    public Customer() {
+    }
+
+    public Customer(String firstName, String lastName, String email, String password, String phone, int id, int rating, double balance) {
+        super(firstName, lastName, email, password, phone, id);
+        this.rating = rating;
+        this.balance = balance;
+    }
+
     public List<Trip> PreviousTripsDetails(int id) {
         List<Trip> trips = new ArrayList<>();
         trips = RetrieveFromDatabase.retrieveCustomerTripsHistory(id);
