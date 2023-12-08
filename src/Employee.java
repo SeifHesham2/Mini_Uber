@@ -11,7 +11,7 @@ import static javax.management.remote.JMXConnectorFactory.connect;
 
 public class Employee extends Person {
     public Employee() {
-       AutomaticCarAssignment();
+      // AutomaticCarAssignment();
     }
 
     public Employee(String firstName, String lastName, String email, String password, String phone, int id) {
@@ -81,9 +81,8 @@ public class Employee extends Person {
     }
 
 
-
     public void AssignCarToAllDrivers() throws SQLException {
-        List<Driver> driverList = RetrieveFromDatabase.retrieveTheDrivers();
+        List<Driver> driverList = RetrieveFromDatabase.retrieveTheDriversWithoutCars();
         List<Car> carList = RetrieveFromDatabase.retrieveAvailableCars();
         int numberOfCars = carList.size();
         int numberOfDrivers = driverList.size();

@@ -17,8 +17,8 @@ public class Main {
       driver.setPassword("123");
       InsertToDatabase.InsertDriver(driver);*/
 
-     //  Employee employee = new Employee();
-      //employee.AssignCarToAllDrivers();;
+     Employee employee = new Employee();
+     employee.AssignCarToAllDrivers();;
       /*employee.AssignOrChangeCarToDriver(driver,false);
       employee.AssignOrChangeCarToDriver(driver,true);*/
 

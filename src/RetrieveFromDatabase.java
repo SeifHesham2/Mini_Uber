@@ -116,6 +116,31 @@ public class RetrieveFromDatabase {
 
          return driverList;
     }
+    public static List<Driver> retrieveTheDriversWithoutCars() {
+        List<Driver> driverList = new ArrayList<>();
+
+        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
+        Connection connection = dataBaseConnector.connectToDatabase();
+        try {
+            String sql = "SELECT * FROM Drivers where have_car = 0;";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                try (ResultSet rS = statement.executeQuery()) {
+                    while (rS.next()) {
+                        Driver driver = new Driver(rS.getString("firstname"), rS.getString("lastname"),rS.getString("email"), rS.getString("driver_password") , rS.getString("phone"), rS.getInt("driverID"),rS.getInt("number_of_trips"), rS.getInt("rating"), rS.getBoolean("have_car") );
+                        driverList.add(driver);
+                    }
+                }
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } finally {
+            dataBaseConnector.closeConnection();
+        }
+
+        return driverList;
+    }
 
     public static List<Trip> retrieveDriverTripsHistory(int id) {
         List<Trip> trips = new ArrayList<>();
