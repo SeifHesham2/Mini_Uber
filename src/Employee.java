@@ -11,7 +11,7 @@ import static javax.management.remote.JMXConnectorFactory.connect;
 
 public class Employee extends Person {
     public Employee() {
-      // AutomaticCarAssignment();
+       AutomaticCarAssignment();
     }
 
     public Employee(String firstName, String lastName, String email, String password, String phone, int id) {
@@ -87,6 +87,9 @@ public class Employee extends Person {
         int numberOfCars = carList.size();
         int numberOfDrivers = driverList.size();
         int counter = Math.min(numberOfCars, numberOfDrivers);
+        if(numberOfCars < numberOfDrivers)
+            System.out.println("You need to Add cars To The system");
+
         for (int i = 0; i < counter; i++) {
             driverList.get(i).setHaveCar(true);
             System.out.println(driverList.get(i).isHaveCar());
