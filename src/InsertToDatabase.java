@@ -5,11 +5,13 @@ public class InsertToDatabase {
     public static void InsertEmployee(Employee employee) throws SQLException {
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
-            String sql = "INSERT INTO employees (firstname, lastname, phone ) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO employees (firstname, lastname, email, phone, EmployeePassword) VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, employee.getFirstName());
                 statement.setString(2, employee.getLastName());
-                statement.setString(3, employee.getPhone());
+                statement.setString(3, employee.getEmail());
+                statement.setString(4, employee.getPhone());
+                statement.setString(5, employee.getPassword());
 
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) {
