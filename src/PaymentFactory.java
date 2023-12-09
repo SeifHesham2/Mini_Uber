@@ -11,8 +11,7 @@ public class PaymentFactory
             return  new Cash();
         }
         else {
-            //throw new IllegalArgumentException("this PaymentMethod is not supported yet !");
-            return null;
+            throw new IllegalArgumentException("this PaymentMethod is not supported yet !");
         }
     }
 }
