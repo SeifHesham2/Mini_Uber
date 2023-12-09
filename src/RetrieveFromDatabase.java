@@ -99,7 +99,15 @@ public class RetrieveFromDatabase {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 try (ResultSet rS = statement.executeQuery()) {
                     while (rS.next()) {
-                        Driver driver = new Driver(rS.getString("firstname"), rS.getString("lastname"),rS.getString("email"), rS.getString("driver_password") , rS.getString("phone"), rS.getInt("driverID"),rS.getInt("number_of_trips"), rS.getInt("rating"), rS.getBoolean("have_car") );
+                        Driver driver = new Driver(rS.getString("firstname"),
+                                rS.getString("lastname"),
+                                rS.getString("email"),
+                                rS.getString("driver_password") ,
+                                rS.getString("phone"),
+                                rS.getInt("driverID"),
+                                rS.getInt("number_of_trips"),
+                                rS.getInt("rating"),
+                                rS.getBoolean("have_car") );
                         driverList.add(driver);
                     }
                 }
@@ -113,6 +121,34 @@ public class RetrieveFromDatabase {
 
          return driverList;
     }
+    public static Driver retrieveDriver(int driverID) {
+        Driver driver = null;
+        try (Connection connection = dataBaseConnector.connectToDatabase();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Drivers WHERE driverid = ?")) {
+            statement.setInt(1, driverID);
+            try (ResultSet rS = statement.executeQuery()) {
+                if (rS.next()) {
+                    driver = new Driver(
+                            rS.getString("firstname"),
+                            rS.getString("lastname"),
+                            rS.getString("email"),
+                            rS.getString("driver_password"),
+                            rS.getString("phone"),
+                            rS.getInt("driverID"),
+                            rS.getInt("number_of_trips"),
+                            rS.getInt("rating"),
+                            rS.getBoolean("have_car")
+                    );
+                } else {
+                    System.out.println("The Driver ID is NotFound !!");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return driver;
+    }
+
     public static List<Driver> retrieveTheDriversWithoutCars() {
         List<Driver> driverList = new ArrayList<>();
 
@@ -123,7 +159,15 @@ public class RetrieveFromDatabase {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 try (ResultSet rS = statement.executeQuery()) {
                     while (rS.next()) {
-                        Driver driver = new Driver(rS.getString("firstname"), rS.getString("lastname"),rS.getString("email"), rS.getString("driver_password") , rS.getString("phone"), rS.getInt("driverID"),rS.getInt("number_of_trips"), rS.getInt("rating"), rS.getBoolean("have_car") );
+                        Driver driver = new Driver(rS.getString("firstname"),
+                                rS.getString("lastname"),
+                                rS.getString("email"),
+                                rS.getString("driver_password") ,
+                                rS.getString("phone"),
+                                rS.getInt("driverID"),
+                                rS.getInt("number_of_trips"),
+                                rS.getInt("rating"),
+                                rS.getBoolean("have_car") );
                         driverList.add(driver);
                     }
                 }
@@ -243,5 +287,28 @@ public class RetrieveFromDatabase {
 
         return employeeList;
     }
+    public static Complaints retrieveComplaint(int complaintID) {
+        Complaints complaint = null;
+        try (Connection connection = dataBaseConnector.connectToDatabase();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM complaints WHERE complaintID = ?")) {
+            statement.setInt(1, complaintID);
+            try (ResultSet rS = statement.executeQuery()) {
+                if (rS.next()) {
+                    complaint = new Complaints(
+                          rS.getInt("ComplaintID"),
+                            rS.getInt("tripID"),
+                            rS.getString("decription"),
+                            rS.getBoolean("opened")
+                    );
+                } else {
+                    System.out.println("The Complaint ID is NotFound !!");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return  complaint;
+    }
+
 
 }

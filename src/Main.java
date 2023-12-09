@@ -7,6 +7,15 @@ import java.util.List;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
   public static void main(String[] args) throws SQLException {
+
+  /*
+  Employee.AutomaticCarAssignment();
+  Very Important Function For the main
+   */
+
+
+
+
    /*   Driver driver = new Driver();
       driver.setHaveCar(false); driver.setRating(4);
       driver.setEmail("seifhesham20d30@gmail.com");
@@ -17,12 +26,12 @@ public class Main {
       driver.setPassword("123");
       InsertToDatabase.InsertDriver(driver);*/
 
-     Employee employee = new Employee();
-     employee.AssignCarToAllDrivers();;
+     /*Employee employee = new Employee();
+     employee.AssignCarToAllDrivers();*/
       /*employee.AssignOrChangeCarToDriver(driver,false);
       employee.AssignOrChangeCarToDriver(driver,true);*/
 
-      // Employee seif = new Employee();
+     // Employee.AssignCarToAllDrivers();
 
 
       ////////////////// CUSTOMER TESTING//////////////
