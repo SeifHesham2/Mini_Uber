@@ -8,10 +8,10 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class RetrieveFromDatabase {
+    private static final DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
     public static List<Trip> retrieveAvailableTrips() {
         List<Trip> trips = new ArrayList<>();
 
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "SELECT * FROM trips WHERE driverID IS NULL;";
@@ -40,7 +40,6 @@ public class RetrieveFromDatabase {
     public static List<Car> retrieveAvailableCars() {
         List<Car> carList = new ArrayList<>();
 
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "SELECT * FROM cars WHERE driverID IS NULL;";
@@ -68,7 +67,6 @@ public class RetrieveFromDatabase {
     public static List<Complaints> retrieveComplaints() {
         List<Complaints> complaintsList = new ArrayList<>();
 
-        DataBaseConnector dataBaseConnector =DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "SELECT * FROM complaints;";
@@ -94,7 +92,6 @@ public class RetrieveFromDatabase {
     public static List<Driver> retrieveTheDrivers() {
         List<Driver> driverList = new ArrayList<>();
 
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "SELECT * FROM Drivers;";
@@ -119,7 +116,6 @@ public class RetrieveFromDatabase {
     public static List<Driver> retrieveTheDriversWithoutCars() {
         List<Driver> driverList = new ArrayList<>();
 
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "SELECT * FROM Drivers where have_car = 0;";
@@ -145,7 +141,6 @@ public class RetrieveFromDatabase {
     public static List<Trip> retrieveDriverTripsHistory(int id) {
         List<Trip> trips = new ArrayList<>();
 
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "SELECT * FROM trips WHERE driverID = ?";
@@ -175,7 +170,6 @@ public class RetrieveFromDatabase {
     public static List<Trip> retrieveCustomerTripsHistory(int id) {
         List<Trip> trips = new ArrayList<>();
 
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "SELECT * FROM trips WHERE customerID = ?";
@@ -204,7 +198,6 @@ public class RetrieveFromDatabase {
     public static List<Customer> retrieveTheCustomers() {
         List<Customer> customerList = new ArrayList<>();
 
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "SELECT * FROM customers;";
@@ -228,7 +221,7 @@ public class RetrieveFromDatabase {
     }
     public static List<Employee> retrieveTheEmployees() {
         List<Employee> employeeList = new ArrayList<>();
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
+
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "SELECT * FROM EMPLOYEES;";

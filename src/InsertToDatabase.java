@@ -1,8 +1,8 @@
 import java.sql.*;
 
 public class InsertToDatabase {
+    private static final DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
     public static void InsertEmployee(Employee employee) throws SQLException {
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "INSERT INTO employees (firstname, lastname, phone ) VALUES (?, ?, ?)";
@@ -33,7 +33,6 @@ public class InsertToDatabase {
     }
 
     public static void InsertDriver(Driver driver) throws SQLException {
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "INSERT INTO drivers (firstname , lastname , email , phone , driver_password) VALUES ( ? , ? , ? , ? , ?)";
@@ -67,7 +66,6 @@ public class InsertToDatabase {
     }
 
     public static void InsertCustomer(Customer customer) throws SQLException {
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "INSERT INTO customers (firstname , lastname , email , phone , UserPassword) VALUES ( ? , ? , ? , ? , ?)";
@@ -100,7 +98,6 @@ public class InsertToDatabase {
     }
 
     public static void InsertTrip(Trip trip) throws SQLException {
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "INSERT INTO trips (pickup_point , destination , trip_time , trip_price , payment_method , customerID ) VALUES ( ? , ? , ? , ? , ? , ?)";
@@ -137,7 +134,6 @@ public class InsertToDatabase {
     }
 
     public static void InsertCar(Car car) throws SQLException {
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "INSERT INTO cars (plate_number , car_type , car_color , car_model , number_of_seats  ) VALUES ( ? , ? , ? , ? , ?)";
@@ -170,7 +166,6 @@ public class InsertToDatabase {
     }
 
     public static void InsertComplaint(Complaints complaints) throws SQLException {
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "INSERT INTO complaints (tripID, description) VALUES (?, ?)";

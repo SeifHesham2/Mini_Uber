@@ -3,8 +3,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class UpdateDataBase {
+    private static final DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
     public static void UpdateCar(int driverID, int carID) throws SQLException {
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
 
         try {
@@ -25,7 +25,6 @@ public class UpdateDataBase {
         }
     }
     public static void UpdateCarDriverID(int driverID) throws SQLException {
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
 
         try {
@@ -45,7 +44,6 @@ public class UpdateDataBase {
         }
     }
     public static void UpdateComplaintsStatus(int complaintsID) throws SQLException {
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
 
         try {
@@ -65,7 +63,6 @@ public class UpdateDataBase {
         }
     }
     public static void UpdateDriver(Boolean haveCar, int driverID) throws SQLException {
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
 
         try {
@@ -87,7 +84,6 @@ public class UpdateDataBase {
     }
 
     public static void UpdateTrip(int driverID, int tripID) throws SQLException {
-        DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
         Connection connection = dataBaseConnector.connectToDatabase();
 
         try {
