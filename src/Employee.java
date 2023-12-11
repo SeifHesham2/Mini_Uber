@@ -23,11 +23,10 @@ public class Employee extends Person {
     }
 
 
-    public Car AddCar(int numberOfSeats, String plateNumber, String carType, String carColor, String carModel) throws SQLException
+    public void AddCar(int numberOfSeats, String plateNumber, String carType, String carColor, String carModel) throws SQLException
     {
         Car newCar = new Car(numberOfSeats, plateNumber, carType, carColor, carModel);
         InsertToDatabase.InsertCar(newCar);
-        return newCar;
     }
 
 
