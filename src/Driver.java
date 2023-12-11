@@ -17,6 +17,10 @@ public class Driver extends Person {
         this.haveCar = haveCar;
     }
 
+    public Driver(String firstName, String lastName, String email, String password, String phone) {
+        super(firstName, lastName, email, password, phone);
+    }
+
     public List<Trip> ViewAvailableTrips() {
         List<Trip> trips = new ArrayList<>();
 

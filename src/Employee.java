@@ -31,6 +31,7 @@ public class Employee extends Person {
     }
 
 
+
     public void AssignOrChangeCarToDriver(int DriverID, boolean forChange) throws SQLException
     {
         Driver driver = RetrieveFromDatabase.retrieveDriver(DriverID);
@@ -152,6 +153,11 @@ public class Employee extends Person {
                 e.printStackTrace();
             }
         }, 0, 24, TimeUnit.HOURS);
+    }
+
+    public void RegisterDriver(String firstName, String lastName, String email, String password, String phone) throws SQLException {
+        Driver driver = new Driver(firstName,lastName,email,password,phone);
+        InsertToDatabase.InsertDriver(driver);
     }
 }
 
