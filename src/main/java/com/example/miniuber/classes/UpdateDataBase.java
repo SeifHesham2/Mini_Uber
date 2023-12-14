@@ -85,6 +85,27 @@ public class UpdateDataBase {
         }
     }
 
+    public static void UpdateDriverNumberOfTrips(int driverID, int numberOfTrips) throws SQLException {
+        Connection connection = dataBaseConnector.connectToDatabase();
+
+        try {
+            String sql = "UPDATE drivers SET number_of_trips = ? WHERE driverID = ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, numberOfTrips);
+                statement.setInt(2, driverID);
+                int rowsUpdated = statement.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("Driver number of trips updated successfully!");
+                } else {
+                    System.out.println("Failed to update driver number of trips.");
+                }
+            }
+        } finally {
+            dataBaseConnector.closeConnection();
+        }
+    }
+
     public static void UpdateTrip(int driverID, int tripID) throws SQLException {
         Connection connection = dataBaseConnector.connectToDatabase();
 

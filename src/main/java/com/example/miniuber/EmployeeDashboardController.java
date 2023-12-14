@@ -234,7 +234,7 @@ public class EmployeeDashboardController {
         {
             if(validateFields2())
             {
-                done = Employee.RegisterDriver(firstNameField.getText(), lastNameField.getText(), emailField.getText(), phoneField.getText(), passwordField.getText());
+                done = Employee.RegisterDriver(firstNameField.getText(), lastNameField.getText(), emailField.getText(), passwordField.getText(), phoneField.getText());
                 if(done)
                 {
                     successLabel3.setText("Driver added successfully.");

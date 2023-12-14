@@ -95,6 +95,7 @@ public class ExitDialog {
                     data1.remove(trip);
                     data2.add(new Trip(trip.getTripID(), trip.getDestination(), trip.getPickupPoint(), trip.getTripTime(), trip.getTripPrice(), trip.getPaymentMethod(), trip.isFinished()));
                     successLabel1.setText("Trip assigned successfully.");
+                    UpdateDataBase.UpdateDriverNumberOfTrips(driver.getId(), driver.getNumberOfTrips());
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
