@@ -266,6 +266,13 @@ public class EmployeeDashboardController {
         List<Car> carList = new ArrayList<>(carsList.values());
         tableViewInPanel5.getItems().addAll(carList);
     }
+    private void refreshTableView3() {
+        // Assuming tableView is the reference to your TableView
+        tableViewInPanel5.getItems().clear();
+        HashMap<Integer, Car> carsList = Employee.CarsList(); // Retrieve the updated list of available cars from the database
+        List<Car> carList = new ArrayList<>(carsList.values());
+        tableViewInPanel5.getItems().addAll(carList);
+    }
 
     public void addCar(ActionEvent e) throws SQLException {
         HandlingErrors.hideBothLabels(errorLabel, successLabel, 250, 295);
@@ -277,6 +284,7 @@ public class EmployeeDashboardController {
                 Boolean done = Employee.AddCar(car);
                 if(done)
                 {
+                    refreshTableView3();
                     successLabel.setText("Car added successfully.");
                     return;
                 }
