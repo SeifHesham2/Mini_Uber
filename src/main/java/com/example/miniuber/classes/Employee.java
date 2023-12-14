@@ -26,9 +26,7 @@ public class Employee extends Person {
 
     public static Boolean AddCar(Car newCar) throws SQLException
     {
-        Boolean valid = InsertToDatabase.InsertCar(newCar);
-        if(valid) return true;
-        else return false;
+        return InsertToDatabase.InsertCar(newCar);
     }
 
     public static Boolean RegisterDriver(String firstName, String lastName, String email, String password, String phone) throws SQLException {
