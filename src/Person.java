@@ -8,6 +8,14 @@ public abstract  class Person {
     public Person() {
     }
 
+    public Person(String firstName, String lastName, String email, String password, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        Password = password;
+        this.phone = phone;
+    }
+
     public Person(String firstName, String lastName, String email, String password, String phone, int id) {
         this.firstName = firstName;
         this.lastName = lastName;

@@ -23,12 +23,12 @@ public class Employee extends Person {
     }
 
 
-    public Car AddCar(int numberOfSeats, String plateNumber, String carType, String carColor, String carModel) throws SQLException
+    public void AddCar(int numberOfSeats, String plateNumber, String carType, String carColor, String carModel) throws SQLException
     {
         Car newCar = new Car(numberOfSeats, plateNumber, carType, carColor, carModel);
         InsertToDatabase.InsertCar(newCar);
-        return newCar;
     }
+
 
 
     public void AssignOrChangeCarToDriver(int DriverID, boolean forChange) throws SQLException
@@ -152,6 +152,11 @@ public class Employee extends Person {
                 e.printStackTrace();
             }
         }, 0, 24, TimeUnit.HOURS);
+    }
+
+    public void RegisterDriver(String firstName, String lastName, String email, String password, String phone) throws SQLException {
+        Driver driver = new Driver(firstName,lastName,email,password,phone);
+        InsertToDatabase.InsertDriver(driver);
     }
 }
 
