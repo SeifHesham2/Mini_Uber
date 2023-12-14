@@ -37,52 +37,55 @@
         <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="730.0" style="-fx-background-color: #FFFFFF;">
             <!-- Panels -->
             <Pane fx:id="panel1" onKeyPressed="#handleKeyPress" style="-fx-background-color: #FFFFFF;" visible="false">
-                <ImageView fitHeight="170.0" fitWidth="234.0" layoutX="248.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="170.0" fitWidth="234.0" layoutX="248.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../images/young-woman-testing-a-car-in-a-car-showroom-6920983-5662114.png" />
                     </image>
                 </ImageView>
-                <TextField fx:id="plateNumberField" layoutX="289.0" layoutY="211.0" promptText="Plate Number" />
-                <TextField fx:id="carTypeField" layoutX="289.0" layoutY="253.0" promptText="Car Type" />
-                <TextField fx:id="carColorField" layoutX="289.0" layoutY="302.0" promptText="Car Color" />
-                <TextField fx:id="numberOfSeatsField" layoutX="289.0" layoutY="346.0" promptText="Number Of Seats" />
-                <TextField fx:id="carModelField" layoutX="289.0" layoutY="394.0" promptText="Car Model" />
-                <Button fx:id="addCarButton" layoutX="250.0" layoutY="450.0" mnemonicParsing="false" onAction="#addCar" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Add Car" textFill="WHITE" />
+                <TextField fx:id="dummyTextField" layoutX="0.0" layoutY="0.0" opacity="0.0" />
+                <TextField fx:id="plateNumberField" layoutX="289.0" layoutY="238.0" promptText="Plate Number" />
+                <TextField fx:id="carTypeField" layoutX="289.0" layoutY="280.0" promptText="Car Type" />
+                <TextField fx:id="carColorField" layoutX="289.0" layoutY="329.0" promptText="Car Color" />
+                <TextField fx:id="numberOfSeatsField" layoutX="289.0" layoutY="373.0" promptText="Number Of Seats" />
+                <TextField fx:id="carModelField" layoutX="289.0" layoutY="421.0" promptText="Car Model" />
+                <Button fx:id="addCarButton" layoutX="250.0" layoutY="477.0" mnemonicParsing="false" onAction="#addCar" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Add Car" textFill="WHITE" />
                 <!-- Add a label for displaying error messages -->
-                <Label fx:id="errorLabel" alignment="CENTER" layoutX="250.0" layoutY="500.0" style="-fx-font-weight: bold;" textFill="red" />
+                <Label fx:id="errorLabel" alignment="CENTER" layoutX="250.0" layoutY="515.0" style="-fx-font-weight: bold;" textFill="red" />
                 <!-- Add a label for displaying successful messages -->
-                <Label fx:id="successLabel" alignment="CENTER" layoutX="295.0" layoutY="500.0" style="-fx-font-weight: bold;" textFill="green" />
+                <Label fx:id="successLabel" alignment="CENTER" layoutX="295.0" layoutY="515.0" style="-fx-font-weight: bold;" textFill="green" />
             </Pane>
 
             <Pane fx:id="panel2" onKeyPressed="#handleKeyPress3" style="-fx-background-color: #FFFFFF;" visible="false">
-                <ImageView fitHeight="170.0" fitWidth="234.0" layoutX="248.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="170.0" fitWidth="234.0" layoutX="248.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../images/pngtree-car-front-with-male-driver-picture-image_8463416.png" />
                     </image>
                 </ImageView>
-                <TextField fx:id="firstNameField" layoutX="289.0" layoutY="214.0" promptText="First Name" />
-                <TextField fx:id="lastNameField" layoutX="289.0" layoutY="256.0" promptText="Last Name" />
-                <TextField fx:id="emailField" layoutX="289.0" layoutY="298.0" promptText="Email" />
-                <TextField fx:id="phoneField" layoutX="289.0" layoutY="340.0" promptText="Phone" />
-                <TextField fx:id="passwordField" layoutX="289.0" layoutY="382.0" promptText="Password" />
-                <Button fx:id="registerButton" layoutX="250.0" layoutY="429.0" mnemonicParsing="false" onAction="#registerDriver" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Register A Driver" textFill="WHITE" />
+                <TextField fx:id="dummyTextField2" layoutX="0.0" layoutY="0.0" opacity="0.0" />
+                <TextField fx:id="firstNameField" layoutX="289.0" layoutY="251.0" promptText="First Name" />
+                <TextField fx:id="lastNameField" layoutX="289.0" layoutY="293.0" promptText="Last Name" />
+                <TextField fx:id="emailField" layoutX="289.0" layoutY="335.0" promptText="Email" />
+                <TextField fx:id="phoneField" layoutX="289.0" layoutY="377.0" promptText="Phone" />
+                <TextField fx:id="passwordField" layoutX="289.0" layoutY="419.0" promptText="Password" />
+                <Button fx:id="registerButton" layoutX="250.0" layoutY="466.0" mnemonicParsing="false" onAction="#registerDriver" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Register A Driver" textFill="WHITE" />
                 <!-- Add a label for displaying error messages -->
-                <Label fx:id="errorLabel3" alignment="CENTER" layoutX="250.0" layoutY="480.0" style="-fx-font-weight: bold;" textFill="red" />
+                <Label fx:id="errorLabel3" alignment="CENTER" layoutX="250.0" layoutY="500.0" style="-fx-font-weight: bold;" textFill="red" />
                 <!-- Add a label for displaying successful messages -->
-                <Label fx:id="successLabel3" alignment="CENTER" layoutX="289.0" layoutY="480.0" style="-fx-font-weight: bold;" textFill="green" />
+                <Label fx:id="successLabel3" alignment="CENTER" layoutX="289.0" layoutY="500.0" style="-fx-font-weight: bold;" textFill="green" />
             </Pane>
 
             <Pane fx:id="panel3" style="-fx-background-color: #FFFFFF;" visible="false">
-                <ImageView fitHeight="260.0" fitWidth="321.0" layoutX="211.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="260.0" fitWidth="321.0" layoutX="205.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../images/Four-Car-Vector-Design-Graphic-Cartoon-Graphics-4584794-2-580x435.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="assignCarsForAllButton" layoutX="258.0" layoutY="326.0" mnemonicParsing="false" onAction="#assignCarForAll" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Assign Cars For All The Drivers" textFill="WHITE" />
+                <Button fx:id="assignCarsForAllButton" layoutX="252.0" layoutY="358.0" mnemonicParsing="false" onAction="#assignCarForAll" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Assign Cars For All The Drivers" textFill="WHITE" />
                 <!-- Add a label for displaying error messages -->
                 <Label fx:id="errorLabel5" alignment="CENTER" layoutX="262.0" layoutY="375.0" style="-fx-font-weight: bold;" textFill="red" />
                 <!-- Add a label for displaying successful messages -->
-                <Label fx:id="successLabel5" alignment="CENTER" layoutX="262.0" layoutY="375.0" style="-fx-font-weight: bold;" textFill="green" />            </Pane>
+                <Label fx:id="successLabel5" alignment="CENTER" layoutX="262.0" layoutY="375.0" style="-fx-font-weight: bold;" textFill="green" />
+            </Pane>
             <Pane fx:id="panel4" onKeyPressed="#handleKeyPress2" style="-fx-background-color: #FFFFFF;" visible="false">
                 <TableView fx:id="tableViewInPanel4" layoutX="40.0" layoutY="45.0" prefHeight="419.0" prefWidth="651.0">
                     <columns>
@@ -108,6 +111,7 @@
                         </TableColumn>
                     </columns>
                 </TableView>
+                <TextField fx:id="dummyTextField3" layoutX="0.0" layoutY="0.0" opacity="0.0" />
             <TextField fx:id="complaintIdField" layoutX="291.0" layoutY="475.0" promptText="Complaint ID" />
             <Button fx:id="updateButton" layoutX="252.0" layoutY="511.0" mnemonicParsing="false" onAction="#updateStatus" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Update Status" textFill="WHITE" />
             <!-- Add a label for displaying error messages -->
@@ -151,6 +155,7 @@
                             </TableColumn>
                         </columns>
                     </TableView>
+            <TextField fx:id="dummyTextField4" layoutX="0.0" layoutY="0.0" opacity="0.0" />
             <TextField fx:id="carIdField2" layoutX="174.0" layoutY="484.0" promptText="Car ID" />
                     <TextField fx:id="driverIdField2" layoutX="346.0" layoutY="484.0" promptText="Driver ID" />
                     <CheckBox fx:id="changeCarCheckBox" layoutX="511.0" layoutY="488.0" mnemonicParsing="false" text="Change The Car " />

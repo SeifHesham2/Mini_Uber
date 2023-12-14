@@ -119,12 +119,27 @@ public class EmployeeDashboardController {
     @FXML
     private TableColumn<Car, Integer> numberOfSeatsTableField;
     private ObservableList<Car> data2 = FXCollections.observableArrayList(); // YourDataType should be a class representing your data
+    @FXML
+    private TextField dummyTextField;
+    @FXML
+    private TextField dummyTextField2;
+    @FXML
+    private TextField dummyTextField3;
+    @FXML
+    private TextField dummyTextField4;
     private Stage stage;
     private Scene scene;
     protected int employeeID;
 
     public void initialize(int employeeID) {
         this.employeeID = employeeID;
+
+        // Set focus to the dummyTextField
+        dummyTextField.requestFocus();
+        dummyTextField2.requestFocus();
+        dummyTextField3.requestFocus();
+        dummyTextField4.requestFocus();
+
         carIdField2.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel4, successLabel4, 265, 265));
         driverIdField2.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel4, successLabel4, 265, 265));
         changeCarCheckBox.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel4, successLabel4, 265, 265));
@@ -205,6 +220,8 @@ public class EmployeeDashboardController {
         if(valid)
         {
             successLabel4.setText("Car assigned to driver successfully.");
+            dummyTextField4.requestFocus();
+            clearAllTextFields();
             refreshTableView2();
         }
     }
@@ -222,6 +239,8 @@ public class EmployeeDashboardController {
         if(valid)
         {
             successLabel2.setText("Complaint status updated successfully.");
+            dummyTextField3.requestFocus();
+            clearAllTextFields();
             refreshTableView();
         }
     }
@@ -238,6 +257,8 @@ public class EmployeeDashboardController {
                 if(done)
                 {
                     successLabel3.setText("Driver added successfully.");
+                    dummyTextField2.requestFocus();
+                    clearAllTextFields();
                     return;
                 }
             }
@@ -250,6 +271,22 @@ public class EmployeeDashboardController {
     {
         HandlingErrors.hideBothLabels(errorLabel5, successLabel5, 262, 262);
         Employee.AssignCarToAllDrivers(errorLabel5, successLabel5);
+    }
+
+    private void clearAllTextFields() {
+        plateNumberField.clear();
+        carTypeField.clear();
+        carColorField.clear();
+        numberOfSeatsField.clear();
+        carModelField.clear();
+        firstNameField.clear();
+        lastNameField.clear();
+        emailField.clear();
+        phoneField.clear();
+        passwordField.clear();
+        complaintIdField.clear();
+        carIdField2.clear();
+        driverIdField2.clear();
     }
 
     private void refreshTableView() {
@@ -286,6 +323,8 @@ public class EmployeeDashboardController {
                 {
                     refreshTableView3();
                     successLabel.setText("Car added successfully.");
+                    dummyTextField.requestFocus();
+                    clearAllTextFields();
                     return;
                 }
             }
@@ -359,6 +398,8 @@ public class EmployeeDashboardController {
         panel4.setVisible(false);
         panel5.setVisible(false);
         panel6.setVisible(false);
+
+        clearAllTextFields();
     }
     public void showPanel2(ActionEvent e) throws IOException
     {
@@ -368,6 +409,8 @@ public class EmployeeDashboardController {
         panel4.setVisible(false);
         panel5.setVisible(false);
         panel6.setVisible(false);
+
+        clearAllTextFields();
     }
     public void showPanel3(ActionEvent e) throws IOException
     {
@@ -377,6 +420,8 @@ public class EmployeeDashboardController {
         panel4.setVisible(false);
         panel5.setVisible(false);
         panel6.setVisible(false);
+
+        clearAllTextFields();
     }
 
     public void showPanel4(ActionEvent e) throws IOException
@@ -387,6 +432,8 @@ public class EmployeeDashboardController {
         panel4.setVisible(true);
         panel5.setVisible(false);
         panel6.setVisible(false);
+
+        clearAllTextFields();
     }
 
     public void showPanel5(ActionEvent e) throws IOException
@@ -397,6 +444,8 @@ public class EmployeeDashboardController {
         panel4.setVisible(false);
         panel5.setVisible(true);
         panel6.setVisible(false);
+
+        clearAllTextFields();
     }
 
     @FXML

@@ -30,6 +30,17 @@ public class Driver extends Person {
         return trips;
     }
 
+    public static Boolean updateInfo(String firstName, String lastName, String email, String phone, String password, Driver driver) throws SQLException {
+        driver.setFirstName(firstName);
+        driver.setLastName(lastName);
+        driver.setEmail(email);
+        driver.setPhone(phone);
+        driver.setPassword(password);
+
+        Boolean valid = UpdateDataBase.UpdateDriverInfo(driver);
+        return valid;
+    }
+
     public static void AcceptTrip(Driver driver, int tripID) throws SQLException {
         Map<Integer, Trip> hashMap = new HashMap<>();
 

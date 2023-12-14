@@ -1,6 +1,7 @@
 package com.example.miniuber;
 
 import com.example.miniuber.classes.*;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
@@ -32,6 +33,7 @@ public class ExitDialog {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             System.out.println("You successfully logged out!");
             ((Stage) owner).close();
+            Platform.exit();  // Terminate the JavaFX application
         }
     }
     public static void showTripConfirmation(Window owner, int driverID, Trip trip, ObservableList<Trip> data1, ObservableList<Trip> data2, Label successLabel1) {

@@ -9,10 +9,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
@@ -23,8 +20,9 @@
          <children>
 
             <Button layoutX="40.0" layoutY="215.0" mnemonicParsing="false" onAction="#showPanel2" prefHeight="34.0" prefWidth="182.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="View All Trips" textFill="WHITE" />
-            <Button layoutX="40.0" layoutY="324.0" mnemonicParsing="false" onAction="#showPanel1" prefHeight="34.0" prefWidth="182.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Available Trips" textFill="WHITE" />
-            <Button layoutX="40.0" layoutY="433.0" mnemonicParsing="false" onAction="#redirectToLogin" prefHeight="34.0" prefWidth="182.0" style="-fx-font: 14; -fx-background-color: #00A82D; -fx-background-radius: 20; -fx-padding: 8 16;" text="Sign Out" textFill="WHITE" />
+            <Button layoutX="40.0" layoutY="302.0" mnemonicParsing="false" onAction="#showPanel1" prefHeight="34.0" prefWidth="182.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Available Trips" textFill="WHITE" />
+            <Button layoutX="40.0" layoutY="389.0" mnemonicParsing="false" onAction="#showPanel3" prefHeight="34.0" prefWidth="182.0" style="-fx-font: 14; -fx-background-color: #00A82D; -fx-background-radius: 20; -fx-padding: 8 16;" text="Update Personal Information" textFill="WHITE" />
+            <Button layoutX="40.0" layoutY="476.0" mnemonicParsing="false" onAction="#redirectToLogin" prefHeight="34.0" prefWidth="182.0" style="-fx-font: 14; -fx-background-color: #00A82D; -fx-background-radius: 20; -fx-padding: 8 16;" text="Sign Out" textFill="WHITE" />
              <ImageView fitHeight="138.0" fitWidth="125.0" layoutX="67.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                  <image>
                      <Image url="@../images/man-driving-green-vector-21163730-removebg-preview.png" />
@@ -76,27 +74,47 @@
             </TableView>
         </Pane>
 
-        <Pane fx:id="panel3" style="-fx-background-color: #FFFFFF;" visible="false">
-            <!-- Design and elements for Panel 3 -->
-            <GridPane alignment="CENTER" hgap="10" prefHeight="200" prefWidth="300" vgap="10">
-                <Label style="-fx-font-size: 24; -fx-text-fill: white;" text="Panel 3" GridPane.columnSpan="2" />
-                <Label style="-fx-text-fill: white;" text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <TextField promptText="Enter Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Label style="-fx-text-fill: white;" text="Age:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                <TextField promptText="Enter Age" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <Button text="Operation 3" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-               <columnConstraints>
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-               </rowConstraints>
-                <!-- Add more elements as needed -->
-            </GridPane>
+        <Pane fx:id="panel3" onKeyPressed="#handleKeyPress4" style="-fx-background-color: #FFFFFF;" visible="false">
+            <ImageView fitHeight="178.0" fitWidth="277.0" layoutX="232.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../images/2910382-removebg-preview.png" />
+                </image>
+            </ImageView>
+            <TextField fx:id="dummyTextField" layoutX="0.0" layoutY="0.0" opacity="0.0" />
+            <TextField fx:id="firstNameField" layoutX="299.0" layoutY="241.0" promptText="First Name" />
+            <TextField fx:id="lastNameField" layoutX="299.0" layoutY="288.0" promptText="Last Name" />
+            <TextField fx:id="emailField" layoutX="299.0" layoutY="335.0" promptText="Email" />
+            <TextField fx:id="passwordField" layoutX="299.0" layoutY="382.0" promptText="Password" />
+            <TextField fx:id="phoneField" layoutX="299.0" layoutY="429.0" promptText="Phone" />
+            <Button fx:id="updateButton" layoutX="256.0" layoutY="481.0" mnemonicParsing="false" onAction="#updateInfo" prefHeight="34.0" prefWidth="234.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Update" textFill="WHITE" />
+            <Label fx:id="errorLabel4" alignment="CENTER" layoutX="270.0" layoutY="520.0" style="-fx-font-weight: bold;" textFill="red" />
+            <!-- Add a label for displaying successful messages -->
+            <Label fx:id="successLabel4" alignment="CENTER" layoutX="282.0" layoutY="520.0" style="-fx-font-weight: bold;" textFill="green" />
+            <Label layoutX="204.0" layoutY="245.0" text="First Name">
+                <font>
+                    <Font name="System Bold" size="12.0" />
+                </font>
+            </Label>
+            <Label layoutX="204.0" layoutY="433.0" text="Phone">
+                <font>
+                    <Font name="System Bold" size="12.0" />
+                </font>
+            </Label>
+            <Label layoutX="204.0" layoutY="292.0" text="Last Name">
+                <font>
+                    <Font name="System Bold" size="12.0" />
+                </font>
+            </Label>
+            <Label layoutX="204.0" layoutY="386.0" text="Password">
+                <font>
+                    <Font name="System Bold" size="12.0" />
+                </font>
+            </Label>
+            <Label layoutX="204.0" layoutY="339.0" text="Email">
+                <font>
+                    <Font name="System Bold" size="12.0" />
+                </font>
+            </Label>
         </Pane>
         <Pane fx:id="panel4" style="-fx-background-color: #FFFFFF;" visible="true">
             <ImageView fitHeight="653.0" fitWidth="835.0" layoutX="39.0" layoutY="-38.0" pickOnBounds="true" preserveRatio="true">

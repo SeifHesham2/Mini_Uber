@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -72,12 +73,49 @@ public class DriverDashboardController {
     @FXML
     private TableColumn<Trip, PaymentMethod> paymentTypeColumn1;
     private ObservableList<Trip> data1 = FXCollections.observableArrayList(); // YourDataType should be a class representing your data
+    @FXML
+    private TextField firstNameField;
+    @FXML
+    private TextField lastNameField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private TextField phoneField;
+    @FXML
+    private TextField passwordField;
+    @FXML
+    private Button updateButton;
+    @FXML
+    private Label errorLabel4;
+    @FXML
+    private Label successLabel4;
+    @FXML
+    private TextField dummyTextField;
     private Stage stage;
     private Scene scene;
     private int driverID;
-
+    Driver driver = RetrieveFromDatabase.retrieveDriver(driverID);
     public void initialize(int driverID) throws SQLException {
         this.driverID = driverID;
+
+        driver = RetrieveFromDatabase.retrieveDriver(driverID);
+
+        // Set focus to the dummyTextField
+        dummyTextField.requestFocus();
+
+        // Set user information in the text fields
+        firstNameField.setText(driver.getFirstName());
+        lastNameField.setText(driver.getLastName());
+        emailField.setText(driver.getEmail());
+        phoneField.setText(driver.getPhone());
+        passwordField.setText(driver.getPassword());
+
+        firstNameField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel4, successLabel4, 270.0, 282.0));
+        lastNameField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel4, successLabel4, 270.0, 282.0));
+        emailField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel4, successLabel4, 270.0, 282.0));
+        passwordField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel4, successLabel4, 270.0, 282.0));
+        phoneField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel4, successLabel4, 270.0, 282.0));
+
         // SETTING PANEL VIEW TRIPS
         // Initialize columns with data properties
         tripIdColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getTripID()).asObject());
@@ -145,6 +183,48 @@ public class DriverDashboardController {
         });
     }
 
+    public void updateInfo(ActionEvent e) throws SQLException
+    {
+        HandlingErrors.hideBothLabels(errorLabel4, successLabel4, 270.0, 282.0);
+        if(validateFields4())
+        {
+            errorLabel4.setLayoutX(290);
+            if(HandlingErrors.validateEmailPhoneCriteria(phoneField, emailField, errorLabel4))
+            {
+                Driver driver = RetrieveFromDatabase.retrieveDriver(driverID);
+                Boolean done = Driver.updateInfo(firstNameField.getText(), lastNameField.getText(), emailField.getText(), phoneField.getText(), passwordField.getText(), driver);
+                if(done)
+                {
+                    successLabel4.setText("Information updated successfully!");
+                    dummyTextField.requestFocus();
+                }
+                else
+                {
+                    errorLabel4.setLayoutX(310.0);
+                    errorLabel4.setText("An error has occurred.");
+                }
+            }
+        }
+        else
+            errorLabel4.setText("Please fill all the data and try again.");
+    }
+
+    public void handleKeyPress4(javafx.scene.input.KeyEvent event) throws SQLException {
+        if (event.getCode() == KeyCode.ENTER) {
+            // Trigger loginButton action
+            updateInfo(new ActionEvent(updateButton, null));
+        }
+    }
+
+    private boolean validateFields4() {
+        // Check if all required fields are filled in
+        return !firstNameField.getText().trim().isEmpty()
+                && !lastNameField.getText().trim().isEmpty()
+                && !emailField.getText().trim().isEmpty()
+                && !phoneField.getText().trim().isEmpty()
+                && !passwordField.getText().trim().isEmpty();
+    }
+
     private void refreshTableView() {
         // Assuming tableView is the reference to your TableView
         tableViewInPanel2.getItems().clear();
@@ -159,6 +239,8 @@ public class DriverDashboardController {
         panel2.setVisible(false);
         panel3.setVisible(false);
         panel4.setVisible(false);
+
+        clearAllTextFields();
     }
     public void showPanel2(ActionEvent e) throws IOException
     {
@@ -166,6 +248,18 @@ public class DriverDashboardController {
         panel1.setVisible(false);
         panel3.setVisible(false);
         panel4.setVisible(false);
+
+        clearAllTextFields();
+    }
+
+    public void showPanel3(ActionEvent e) throws IOException
+    {
+        panel3.setVisible(true);
+        panel1.setVisible(false);
+        panel2.setVisible(false);
+        panel4.setVisible(false);
+
+        clearAllTextFields();
     }
 
     private void handleRowClick(Trip trip) throws SQLException {
@@ -174,6 +268,14 @@ public class DriverDashboardController {
 
         ExitDialog.showTripConfirmation(stage, driverID, trip, data1, data, successLabel1);
         refreshTableView();
+    }
+
+    private void clearAllTextFields() {
+        firstNameField.setText(driver.getFirstName());
+        lastNameField.setText(driver.getLastName());
+        emailField.setText(driver.getEmail());
+        phoneField.setText(driver.getPhone());
+        passwordField.setText(driver.getPassword());
     }
 
     @FXML

@@ -146,6 +146,37 @@ public class UpdateDataBase {
         }
     }
 
+    public static Boolean UpdateDriverInfo(Driver driver) throws SQLException {
+        Connection connection = dataBaseConnector.connectToDatabase();
+
+        try {
+            String sql = "UPDATE drivers SET firstname = ?, lastname = ?, email = ?, phone = ?, driver_password = ? WHERE driverid = ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, driver.getFirstName());
+                statement.setString(2, driver.getLastName());
+                statement.setString(3, driver.getEmail());
+                statement.setString(4, driver.getPhone());
+                statement.setString(5, driver.getPassword());
+                statement.setInt(6, driver.getId());
+                int rowsUpdated = statement.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("Driver updated successfully!");
+                    return true;
+                } else {
+                    System.out.println("Failed to update driver.");
+                    return false;
+                }
+            }
+            catch(SQLException e)
+            {
+                return false;
+            }
+        } finally {
+            dataBaseConnector.closeConnection();
+        }
+    }
+
     public static Boolean UpdateCustomer(Customer customer) throws SQLException {
         Connection connection = dataBaseConnector.connectToDatabase();
 

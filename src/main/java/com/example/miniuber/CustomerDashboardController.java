@@ -108,14 +108,28 @@ public class CustomerDashboardController {
     private Label errorLabel4;
     @FXML
     private Label successLabel4;
+    @FXML
+    private TextField dummyTextField;
+    @FXML
+    private TextField dummyTextField2;
+    @FXML
+    private TextField dummyTextField3;
+    @FXML
+    private TextField dummyTextField4;
     private Stage stage;
     private Scene scene;
     protected int customerID;
-
+    Customer customer = RetrieveFromDatabase.retrieveCustomer(customerID);
     public void initialize(int customerID) throws SQLException {
         this.customerID = customerID;
 
-        Customer customer = RetrieveFromDatabase.retrieveCustomer(customerID);
+        customer = RetrieveFromDatabase.retrieveCustomer(customerID);
+
+        // Set focus to the dummyTextField
+        dummyTextField.requestFocus();
+        dummyTextField2.requestFocus();
+        dummyTextField3.requestFocus();
+        dummyTextField4.requestFocus();
 
         // Set user information in the text fields
         firstNameField.setText(customer.getFirstName());
@@ -133,14 +147,14 @@ public class CustomerDashboardController {
         tripIDRateField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel3, successLabel3, 270, 305));
         rateField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel3, successLabel3, 270, 305));
 
-        pickupField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 290, 320));
-        destinationField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 290, 320));
-        priceField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 290, 320));
-        //timeField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 290, 320));
-        paymentMethodCombo.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 290, 320));
+        pickupField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 275, 300));
+        destinationField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 275, 300));
+        priceField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 275, 300));
+        //timeField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 275, 300));
+        paymentMethodCombo.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 275, 300));
 
-        descriptionArea.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel, successLabel, 300, 320));
-        tripIDField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel, successLabel, 300, 320));
+        descriptionArea.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel, successLabel, 275, 290));
+        tripIDField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel, successLabel, 275, 290));
 
         // Create a list of payment methods in the combobox
         ObservableList<String> paymentMethods = FXCollections.observableArrayList("Visa", "Paypal", "Cash");
@@ -185,14 +199,18 @@ public class CustomerDashboardController {
     }
 
     public void sendComplaint(ActionEvent e) throws SQLException {
-        HandlingErrors.hideBothLabels(errorLabel, successLabel, 300, 320);
+        HandlingErrors.hideBothLabels(errorLabel, successLabel, 275, 290);
         if(validateFields())
         {
             if(tripIDField.getText().matches("\\d+"))
             {
                 Boolean done = Customer.SendComplaint(descriptionArea.getText(), Integer.parseInt(tripIDField.getText()), customerID, errorLabel);
                 if(done)
+                {
                     successLabel.setText("Complaint sent successfully.");
+                    dummyTextField.requestFocus();
+                    clearAllTextFields();
+                }
             }
             else
                 errorLabel.setText("Please enter only numbers in trip ID.");
@@ -203,7 +221,7 @@ public class CustomerDashboardController {
 
     public void bookTrip(ActionEvent e) throws SQLException
     {
-        HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 290, 320);
+        HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 275, 300);
         if(validateFields2())
         {
             if(validateCriteria2(errorLabel2))
@@ -212,6 +230,8 @@ public class CustomerDashboardController {
                 if(done)
                 {
                     successLabel2.setText("Trip booked successfully!");
+                    dummyTextField2.requestFocus();
+                    clearAllTextFields();
                     refreshTableView();
                 }
                 else
@@ -249,7 +269,11 @@ public class CustomerDashboardController {
                 {
                     Boolean done = Customer.RateDriver(Integer.parseInt(tripIDRateField.getText()), Integer.parseInt(rateField.getText()));
                     if(done)
+                    {
                         successLabel3.setText("Rate added successfully!");
+                        dummyTextField3.requestFocus();
+                        clearAllTextFields();
+                    }
                     else
                     {
                         errorLabel3.setLayoutX(310.0);
@@ -273,7 +297,10 @@ public class CustomerDashboardController {
                 Customer customer = RetrieveFromDatabase.retrieveCustomer(customerID);
                 Boolean done = Customer.updateInfo(firstNameField.getText(), lastNameField.getText(), emailField.getText(), phoneField.getText(), passwordField.getText(), customer);
                 if(done)
-                    successLabel4.setText("Customer updated successfully!");
+                {
+                    successLabel4.setText("Information updated successfully!");
+                    dummyTextField4.requestFocus();
+                }
                 else
                 {
                     errorLabel4.setLayoutX(310.0);
@@ -311,6 +338,23 @@ public class CustomerDashboardController {
             // Trigger loginButton action
             updateInfo(new ActionEvent(updateButton, null));
         }
+    }
+
+    private void clearAllTextFields() {
+        firstNameField.setText(customer.getFirstName());
+        lastNameField.setText(customer.getLastName());
+        emailField.setText(customer.getEmail());
+        phoneField.setText(customer.getPhone());
+        passwordField.setText(customer.getPassword());
+
+        descriptionArea.clear();
+        tripIDField.clear();
+        pickupField.clear();
+        destinationField.clear();
+        timeField.clear();
+        priceField.clear();
+        tripIDRateField.clear();
+        rateField.clear();
     }
 
     private boolean validateFields() {
@@ -437,6 +481,8 @@ public class CustomerDashboardController {
         panel4.setVisible(false);
         panel5.setVisible(false);
         panel6.setVisible(false);
+
+        clearAllTextFields();
     }
     public void showPanel2(ActionEvent e) throws IOException
     {
@@ -446,6 +492,8 @@ public class CustomerDashboardController {
         panel4.setVisible(false);
         panel5.setVisible(false);
         panel6.setVisible(false);
+
+        clearAllTextFields();
     }
     public void showPanel3(ActionEvent e) throws IOException
     {
@@ -455,6 +503,8 @@ public class CustomerDashboardController {
         panel4.setVisible(false);
         panel5.setVisible(false);
         panel6.setVisible(false);
+
+        clearAllTextFields();
     }
 
     public void showPanel4(ActionEvent e) throws IOException
@@ -465,6 +515,8 @@ public class CustomerDashboardController {
         panel4.setVisible(true);
         panel5.setVisible(false);
         panel6.setVisible(false);
+
+        clearAllTextFields();
     }
 
     public void showPanel5(ActionEvent e) throws IOException
@@ -475,6 +527,8 @@ public class CustomerDashboardController {
         panel4.setVisible(false);
         panel5.setVisible(true);
         panel6.setVisible(false);
+
+        clearAllTextFields();
     }
 
     @FXML
