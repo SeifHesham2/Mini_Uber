@@ -1,6 +1,8 @@
 package com.example.miniuber.classes;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Trip {
@@ -14,12 +16,12 @@ public class Trip {
     private int customerID;
     private int driverID;
 
-    public Trip() {
-
+    public Trip() throws SQLException {
+        UpdateTrip();
     }
 
     public Trip(int tripID, String pickupPoint, String destination, LocalDateTime tripTime, double tripPrice,
-            PaymentMethod paymentMethod, int customerID) {
+            PaymentMethod paymentMethod, int customerID) throws SQLException {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
@@ -27,10 +29,11 @@ public class Trip {
         this.tripPrice = tripPrice;
         this.paymentMethod = paymentMethod;
         this.customerID = customerID;
+        UpdateTrip();
     }
 
     public Trip(int tripID, int driverID, String pickupPoint, String destination, LocalDateTime tripTime, double tripPrice,
-                PaymentMethod paymentMethod, boolean isFinished) {
+                PaymentMethod paymentMethod, boolean isFinished) throws SQLException {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
@@ -39,10 +42,11 @@ public class Trip {
         this.isFinished = isFinished;
         this.paymentMethod = paymentMethod;
         this.driverID = driverID;
+        UpdateTrip();
     }
 
     public Trip(int tripID, String pickupPoint, String destination, LocalDateTime tripTime, double tripPrice,
-            boolean isFinished, PaymentMethod paymentMethod, int customerID) {
+            boolean isFinished, PaymentMethod paymentMethod, int customerID) throws SQLException {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
@@ -51,9 +55,10 @@ public class Trip {
         this.isFinished = isFinished;
         this.paymentMethod = paymentMethod;
         this.customerID = customerID;
+        UpdateTrip();
     }
 
-    public Trip(int tripID, String destination, String pickupPoint, LocalDateTime tripTime, double tripPrice, PaymentMethod paymentMethod, Boolean isFinished) {
+    public Trip(int tripID, String destination, String pickupPoint, LocalDateTime tripTime, double tripPrice, PaymentMethod paymentMethod, Boolean isFinished) throws SQLException {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
@@ -61,15 +66,25 @@ public class Trip {
         this.tripPrice = tripPrice;
         this.paymentMethod = paymentMethod;
         this.isFinished = isFinished;
+        UpdateTrip();
     }
 
-    public Trip(int tripID, String destination, String pickupPoint, LocalDateTime tripTime, double tripPrice, PaymentMethod paymentMethod) {
+    public Trip(int tripID, String destination, String pickupPoint, LocalDateTime tripTime, double tripPrice, PaymentMethod paymentMethod) throws SQLException {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
         this.tripTime = tripTime;
         this.tripPrice = tripPrice;
         this.paymentMethod = paymentMethod;
+        UpdateTrip();
+    }
+
+    private void UpdateTrip() throws SQLException {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        if(currentDateTime.isAfter(this.tripTime)){
+            this.isFinished=true;
+            UpdateDataBase.UpdateTripStatus(this.tripID);
+        };
     }
 
     public int getTripID() {

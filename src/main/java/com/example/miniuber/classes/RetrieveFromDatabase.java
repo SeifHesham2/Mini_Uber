@@ -14,7 +14,7 @@ public class RetrieveFromDatabase {
 
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
-            String sql = "SELECT * FROM trips WHERE driverID IS NULL;";
+            String sql = "SELECT * FROM trips WHERE driverID IS NULL and is_finished = 0;";
 
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 try (ResultSet rS = statement.executeQuery()) {
@@ -89,6 +89,7 @@ public class RetrieveFromDatabase {
 
         return complaintsList;
     }
+
 
     public static Driver retrieveDriver(int driverID) {
         Driver driver = null;

@@ -220,7 +220,7 @@ public class Employee extends Person {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }, 0, 24, TimeUnit.HOURS);
+        }, 1, 24, TimeUnit.HOURS);
     }
 }
 

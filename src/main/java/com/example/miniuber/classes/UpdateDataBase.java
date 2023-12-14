@@ -26,6 +26,25 @@ public class UpdateDataBase {
             dataBaseConnector.closeConnection();
         }
     }
+    public static void UpdateTripStatus(int tripID) throws SQLException {
+        Connection connection = dataBaseConnector.connectToDatabase();
+
+        try {
+            String sql = "UPDATE trips SET is_finished = true WHERE tripID = ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, tripID);
+                int rowsUpdated = statement.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("Car updated successfully!");
+                } else {
+                    System.out.println("Failed to update Car.");
+                }
+            }
+        } finally {
+            dataBaseConnector.closeConnection();
+        }
+    }
     public static void UpdateCarDriverID(int driverID) throws SQLException {
         Connection connection = dataBaseConnector.connectToDatabase();
 

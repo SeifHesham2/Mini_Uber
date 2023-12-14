@@ -1,6 +1,8 @@
 package com.example.miniuber;
 
 import com.example.miniuber.classes.Employee;
+import com.example.miniuber.classes.RetrieveFromDatabase;
+import com.example.miniuber.classes.Trip;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,6 +13,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends Application {
     public void Exit(Stage stage) throws IOException

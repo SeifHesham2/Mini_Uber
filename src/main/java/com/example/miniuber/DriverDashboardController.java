@@ -76,7 +76,7 @@ public class DriverDashboardController {
     private Scene scene;
     private int driverID;
 
-    public void initialize(int driverID) {
+    public void initialize(int driverID) throws SQLException {
         this.driverID = driverID;
         // SETTING PANEL VIEW TRIPS
         // Initialize columns with data properties

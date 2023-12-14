@@ -15,6 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class LoginController {
     @FXML
@@ -34,7 +35,7 @@ public class LoginController {
         passwordField.setOnMouseClicked(event -> HandlingErrors.hideErrorLabel(errorLabel, 46));
     }
 
-    public void Login(ActionEvent e) throws IOException {
+    public void Login(ActionEvent e) throws IOException, SQLException {
         HandlingErrors.hideErrorLabel(errorLabel, 46);
         Driver driver = Login.DriverLogin(emailField.getText(), passwordField.getText());
         Customer customer = Login.CustomerLogin(emailField.getText(), passwordField.getText());
@@ -82,7 +83,7 @@ public class LoginController {
         }
     }
 
-    public void handleKeyPress(javafx.scene.input.KeyEvent event) throws IOException {
+    public void handleKeyPress(javafx.scene.input.KeyEvent event) throws IOException, SQLException {
         if (event.getCode() == KeyCode.ENTER) {
             // Trigger loginButton action
             Login(new ActionEvent(loginButton, null));

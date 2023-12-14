@@ -110,7 +110,7 @@ public class CustomerDashboardController {
     private Scene scene;
     protected int customerID;
 
-    public void initialize(int customerID) {
+    public void initialize(int customerID) throws SQLException {
         this.customerID = customerID;
 
         Customer customer = RetrieveFromDatabase.retrieveCustomer(customerID);
