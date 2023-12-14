@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="988.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.miniuber.EmployeeDashboardController">
+    <!-- ... (other code remains unchanged) ... -->
+    <children>
+        <AnchorPane layoutX="-1.0" prefHeight="576.0" prefWidth="259.0" style="-fx-background-color: #34495e; -fx-background-color: ;">
+            <children>
+                <Button layoutX="15.0" layoutY="171.0" mnemonicParsing="false" onAction="#showPanel1" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Add Car" textFill="WHITE" />
+                <Button layoutX="15.0" layoutY="232.0" mnemonicParsing="false" onAction="#showPanel4" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="View Complaints" textFill="WHITE" />
+                <Button layoutX="15.0" layoutY="293.0" mnemonicParsing="false" onAction="#showPanel2" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Register A Driver" textFill="WHITE" />
+                <Button layoutX="15.0" layoutY="354.0" mnemonicParsing="false" onAction="#showPanel3" prefHeight="34.0" prefWidth="227.0" style="-fx-font: 14; -fx-background-color: #00A82D; -fx-background-radius: 20; -fx-padding: 8 16;" text="Assing Cars for All The Drivers" textFill="WHITE" />
+                <Button layoutX="15.0" layoutY="415.0" mnemonicParsing="false" onAction="#showPanel5" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Assign Car To Driver or Change A Car" textFill="WHITE" />
+                <Button layoutX="16.0" layoutY="476.0" mnemonicParsing="false" onAction="#redirectToLogin" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Sign Out" textFill="WHITE" />
+                <ImageView fitHeight="138.0" fitWidth="125.0" layoutX="67.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/3219840.png" />
+                    </image>
+                </ImageView>
+
+
+            </children>
+        </AnchorPane>
+        <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="730.0" style="-fx-background-color: #FFFFFF;">
+            <!-- Panels -->
+            <Pane fx:id="panel1" onKeyPressed="#handleKeyPress" style="-fx-background-color: #FFFFFF;" visible="false">
+                <ImageView fitHeight="170.0" fitWidth="234.0" layoutX="248.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/young-woman-testing-a-car-in-a-car-showroom-6920983-5662114.png" />
+                    </image>
+                </ImageView>
+                <TextField fx:id="plateNumberField" layoutX="289.0" layoutY="211.0" promptText="Plate Number" />
+                <TextField fx:id="carTypeField" layoutX="289.0" layoutY="253.0" promptText="Car Type" />
+                <TextField fx:id="carColorField" layoutX="289.0" layoutY="302.0" promptText="Car Color" />
+                <TextField fx:id="numberOfSeatsField" layoutX="289.0" layoutY="346.0" promptText="Number Of Seats" />
+                <TextField fx:id="carModelField" layoutX="289.0" layoutY="394.0" promptText="Car Model" />
+                <Button fx:id="addCarButton" layoutX="250.0" layoutY="450.0" mnemonicParsing="false" onAction="#addCar" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Add Car" textFill="WHITE" />
+                <!-- Add a label for displaying error messages -->
+                <Label fx:id="errorLabel" alignment="CENTER" layoutX="250.0" layoutY="500.0" style="-fx-font-weight: bold;" textFill="red" />
+                <!-- Add a label for displaying successful messages -->
+                <Label fx:id="successLabel" alignment="CENTER" layoutX="295.0" layoutY="500.0" style="-fx-font-weight: bold;" textFill="green" />
+            </Pane>
+
+            <Pane fx:id="panel2" onKeyPressed="#handleKeyPress3" style="-fx-background-color: #FFFFFF;" visible="false">
+                <ImageView fitHeight="170.0" fitWidth="234.0" layoutX="248.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/pngtree-car-front-with-male-driver-picture-image_8463416.png" />
+                    </image>
+                </ImageView>
+                <TextField fx:id="firstNameField" layoutX="289.0" layoutY="214.0" promptText="First Name" />
+                <TextField fx:id="lastNameField" layoutX="289.0" layoutY="256.0" promptText="Last Name" />
+                <TextField fx:id="emailField" layoutX="289.0" layoutY="298.0" promptText="Email" />
+                <TextField fx:id="phoneField" layoutX="289.0" layoutY="340.0" promptText="Phone" />
+                <TextField fx:id="passwordField" layoutX="289.0" layoutY="382.0" promptText="Password" />
+                <Button fx:id="registerButton" layoutX="250.0" layoutY="429.0" mnemonicParsing="false" onAction="#registerDriver" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Register A Driver" textFill="WHITE" />
+                <!-- Add a label for displaying error messages -->
+                <Label fx:id="errorLabel3" alignment="CENTER" layoutX="250.0" layoutY="480.0" style="-fx-font-weight: bold;" textFill="red" />
+                <!-- Add a label for displaying successful messages -->
+                <Label fx:id="successLabel3" alignment="CENTER" layoutX="289.0" layoutY="480.0" style="-fx-font-weight: bold;" textFill="green" />
+            </Pane>
+
+            <Pane fx:id="panel3" style="-fx-background-color: #FFFFFF;" visible="false">
+                <ImageView fitHeight="260.0" fitWidth="321.0" layoutX="211.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Four-Car-Vector-Design-Graphic-Cartoon-Graphics-4584794-2-580x435.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="assignCarsForAllButton" layoutX="258.0" layoutY="326.0" mnemonicParsing="false" onAction="#assignCarForAll" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Assign Cars For All The Drivers" textFill="WHITE" />
+                <!-- Add a label for displaying error messages -->
+                <Label fx:id="errorLabel5" alignment="CENTER" layoutX="262.0" layoutY="375.0" style="-fx-font-weight: bold;" textFill="red" />
+                <!-- Add a label for displaying successful messages -->
+                <Label fx:id="successLabel5" alignment="CENTER" layoutX="262.0" layoutY="375.0" style="-fx-font-weight: bold;" textFill="green" />            </Pane>
+            <Pane fx:id="panel4" onKeyPressed="#handleKeyPress2" style="-fx-background-color: #FFFFFF;" visible="false">
+                <TableView fx:id="tableViewInPanel4" layoutX="40.0" layoutY="45.0" prefHeight="419.0" prefWidth="651.0">
+                    <columns>
+                        <TableColumn fx:id="complaintIdColumn" prefWidth="88.800048828125" text="Complaint ID">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="complaintId" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="tripIdColumn" prefWidth="62.39996337890625" text="Trip ID">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="tripId" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="descriptionColumn" prefWidth="432.0001220703125" text="Description">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="description" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="openedColumn" prefWidth="59.9998779296875" text="Opened">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="opened" />
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+            <TextField fx:id="complaintIdField" layoutX="291.0" layoutY="475.0" promptText="Complaint ID" />
+            <Button fx:id="updateButton" layoutX="252.0" layoutY="511.0" mnemonicParsing="false" onAction="#updateStatus" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Update Status" textFill="WHITE" />
+            <!-- Add a label for displaying error messages -->
+            <Label fx:id="errorLabel2" alignment="CENTER" layoutX="270.0" layoutY="550.0" style="-fx-font-weight: bold;" textFill="red" />
+                <!-- Add a label for displaying successful messages -->
+                <Label fx:id="successLabel2" alignment="CENTER" layoutX="265.0" layoutY="550.0" style="-fx-font-weight: bold;" textFill="green" />
+            </Pane>
+                <Pane fx:id="panel5" onKeyPressed="#handleKeyPress4" style="-fx-background-color: #FFFFFF;" visible="false">
+                    <!-- Adding TableView to display car information -->
+                    <TableView fx:id="tableViewInPanel5" layoutX="40.0" layoutY="45.0" prefHeight="419.0" prefWidth="651.0">
+                        <columns>
+                            <TableColumn fx:id="carIdTableField" prefWidth="63.20001220703125" text="Car ID">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="carId" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="plateNumberTableField" prefWidth="135.20001220703125" text="Plate Number">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="plateNumber" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="carTypeTableField" prefWidth="132.00006103515625" text="Car Type">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="carType" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="carColorTableField" prefWidth="122.39996337890625" text="Car Color">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="carColor" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="carModelTableField" text="Car Model">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="carModel" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="numberOfSeatsTableField" prefWidth="116.7999267578125" text="Number of Seats">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="numberOfSeats" />
+                                </cellValueFactory>
+                            </TableColumn>
+                        </columns>
+                    </TableView>
+            <TextField fx:id="carIdField2" layoutX="174.0" layoutY="484.0" promptText="Car ID" />
+                    <TextField fx:id="driverIdField2" layoutX="346.0" layoutY="484.0" promptText="Driver ID" />
+                    <CheckBox fx:id="changeCarCheckBox" layoutX="511.0" layoutY="488.0" mnemonicParsing="false" text="Change The Car " />
+            <Button fx:id="addCarToDriverButton" layoutX="248.0" layoutY="515.0" mnemonicParsing="false" onAction="#addCarToDriver" prefHeight="34.0" prefWidth="234.0" style="-fx-font: 14; -fx-background-color: #00A82D; -fx-background-radius: 20; -fx-padding: 8 16;" text="Add Car To Driver" textFill="WHITE" />
+            <!-- Add a label for displaying error messages -->
+            <Label fx:id="errorLabel4" alignment="CENTER" layoutX="265.0" layoutY="550.0" style="-fx-font-weight: bold;" textFill="red" />
+                <!-- Add a label for displaying successful messages -->
+                <Label fx:id="successLabel4" alignment="CENTER" layoutX="265.0" layoutY="550.0" style="-fx-font-weight: bold;" textFill="green" />
+            </Pane>
+            <Pane fx:id="panel6" style="-fx-background-color: #FFFFFF;" visible="true">
+                <ImageView fitHeight="653.0" fitWidth="835.0" layoutX="39.0" layoutY="-38.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Welcomepreview.png" />
+                    </image>
+                </ImageView>
+            </Pane>
+        </StackPane>
+    </children>
+    <effect>
+        <DropShadow color="#1b1eeb" />
+    </effect>
+</AnchorPane>

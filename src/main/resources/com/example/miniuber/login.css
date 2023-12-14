@@ -1,0 +1,57 @@
+/* Apply styles to the entire scene */
+VBox {
+    -fx-background-color: #ecf0f1; /* Set the background color for the entire scene */
+}
+
+/* Apply styles to the left side (AnchorPane with color #34495e) */
+AnchorPane {
+    -fx-background-color: #34495e; /* Set the background color for the left side */
+}
+
+Text {
+    -fx-fill: white; /* Set text color to white */
+}
+
+/* Apply styles to the right side (AnchorPane with color white) */
+AnchorPane > * {
+    -fx-background-color: white; /* Set the background color for the right side */
+}
+
+TextField, PasswordField {
+    -fx-prompt-text-fill: #95a5a6; /* Set the prompt text color */
+    -fx-background-color: #ecf0f1; /* Set the background color */
+    -fx-border-color: #bdc3c7; /* Set the border color */
+    -fx-border-width: 1; /* Set the border width */
+    -fx-border-radius: 5; /* Set the border radius for curved corners */
+}
+
+Button {
+    -fx-background-color: #2ecc71; /* Set the background color for buttons */
+    -fx-text-fill: white; /* Set text color for buttons */
+    -fx-border-color: #27ae60; /* Set the border color for buttons */
+    -fx-border-radius: 5; /* Set the border radius for curved corners */
+}
+
+Hyperlink {
+    -fx-text-fill: #3498db; /* Set text color for hyperlinks */
+}
+
+ImageView {
+    -fx-effect: dropshadow(gaussian, #95a5a6, 2, 0, 0, 0); /* Add a drop shadow effect to images */
+}
+
+/* Styles for Login Form */
+Text#login {
+    -fx-fill: #2c3e50; /* Set text color for the login title */
+    -fx-font-weight: bold; /* Set font weight for the login title */
+}
+
+/* Styles for Forget Password Link */
+Hyperlink#forgotPassword {
+    -fx-text-fill: #e74c3c; /* Set text color for the forgot password link */
+}
+
+/* Styles for Register Link */
+Hyperlink#registerLink {
+    -fx-text-fill: #3498db; /* Set text color for the register link */
+}

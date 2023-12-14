@@ -1,0 +1,69 @@
+/* Styles for the main VBox */
+VBox {
+    -fx-background-color: #ecf0f1; /* Background color for the entire scene */
+}
+
+/* Styles for the left AnchorPane with the same color */
+AnchorPane {
+    -fx-background-color: #34495e; /* Background color for the left side */
+}
+
+Text {
+    -fx-fill: white; /* Text color */
+}
+
+/* Styles for the right AnchorPane with a different color */
+AnchorPane {
+    -fx-background-color: white; /* Background color for the right side */
+}
+
+Text {
+    -fx-fill: #2c3e50; /* Text color for the right side */
+}
+
+TextField, PasswordField {
+    -fx-background-color: #ecf0f1; /* Background color for text fields */
+    -fx-background-radius: 20; /* Curved corners for the button */
+    -fx-padding: 8 16; /* Padding for the button text */
+    -fx-margin: 8 16; /* Padding for the button text */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 1); /* Shadow effect */
+}
+
+Button {
+    -fx-background-color: #00A82D; /* Background color for buttons */
+    -fx-text-fill: white; /* Text color for buttons */
+    -fx-font-size: 14; /* Font size for buttons */
+    -fx-background-radius: 20; /* Curved corners for the button */
+    -fx-padding: 8 16; /* Padding for the button text */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 1); /* Shadow effect */
+}
+
+Hyperlink {
+    -fx-text-fill: #3498db; /* Text color for hyperlinks */
+}
+
+/* Style for the image */
+ImageView {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 1);
+}
+RadioButton {
+    -fx-font-size: 14;
+    -fx-text-fill: #2c3e50; /* Text color for radio buttons */
+    -fx-padding: 5 0 5 5; /* Padding for radio buttons */
+}
+
+/* Styling for selected radio button */
+RadioButton:selected {
+    -fx-text-fill: #00A82D; /* Text color for selected radio button */
+}
+
+/* Styling for hover effect on radio button */
+RadioButton:hover {
+    -fx-border-color: #00A82D; /* Border color on hover */
+}
+
+/* Styling for the toggle group container (AnchorPane in this case) */
+AnchorPane .toggle-group {
+    -fx-spacing: 10; /* Spacing between radio buttons */
+}
+/* Add more styles as needed */
