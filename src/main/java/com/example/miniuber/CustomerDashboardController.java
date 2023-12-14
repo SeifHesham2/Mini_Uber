@@ -17,7 +17,9 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -347,14 +349,21 @@ public class CustomerDashboardController {
     {
         if(priceField.getText().matches("\\d+\\.?\\d*"))
         {
-            if(isValidDateTime(timeField.getText()))
-                return true;
+            if(isValidDateTimeFormat(timeField.getText()))
+                if(isValidDateTime(timeField.getText()))
+                    return  true;
+                else {
+                    errorLabel2.setLayoutX(310);
+                    errorLabel2.setText("The entered date is in the past.");
+                    return false;
+                }
             else
             {
                 errorLabel2.setLayoutX(310);
                 errorLabel2.setText("Please enter the time in given\nformat: yyyy-MM-dd HH:mm:ss");
                 return false;
             }
+
         }
         else
         {
@@ -394,16 +403,30 @@ public class CustomerDashboardController {
         }
     }
 
-    private boolean isValidDateTime(String dateTime) {
+    private boolean isValidDateTimeFormat(String dateTime) {
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         try {
-            LocalDateTime.parse(dateTime, formatter);
-            return true;
+           LocalDateTime.parse(dateTime, formatter);
+           return  true;
+
         } catch (Exception e) {
             return false;
         }
     }
+    private boolean isValidDateTime(String dateTime) {
+        LocalDateTime current = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        try {
+            LocalDateTime parsedDateTime = LocalDateTime.parse(dateTime, formatter);
+            return !current.isAfter(parsedDateTime);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 
 
     public void showPanel1(ActionEvent e) throws IOException

@@ -81,10 +81,10 @@ public class Trip {
 
     private void UpdateTrip() throws SQLException {
         LocalDateTime currentDateTime = LocalDateTime.now();
-        if(currentDateTime.isAfter(this.tripTime)){
-            this.isFinished=true;
+        if (this.tripTime != null && currentDateTime.isAfter(this.tripTime)) {
+            this.isFinished = true;
             UpdateDataBase.UpdateTripStatus(this.tripID);
-        };
+        }
     }
 
     public int getTripID() {
