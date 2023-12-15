@@ -28,7 +28,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 645, 500);
 
-        Image icon = new Image("C:\\Users\\seifh\\IdeaProjects\\Mini_Uber\\Mini_Uber\\src\\main\\resources\\com\\example\\images\\img.png");
+        Image icon = new Image("file:F:/ASU/7TH SEMESTER/Software Design Patterns/MiniUber/src/main/resources/com/example/images/img.png");
         stage.getIcons().add(icon);
 
         stage.setTitle("Uber");

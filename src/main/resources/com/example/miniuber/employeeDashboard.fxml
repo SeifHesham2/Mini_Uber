@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="988.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.miniuber.EmployeeDashboardController">
     <!-- ... (other code remains unchanged) ... -->
@@ -46,13 +47,38 @@
                 <TextField fx:id="plateNumberField" layoutX="289.0" layoutY="238.0" promptText="Plate Number" />
                 <TextField fx:id="carTypeField" layoutX="289.0" layoutY="280.0" promptText="Car Type" />
                 <TextField fx:id="carColorField" layoutX="289.0" layoutY="329.0" promptText="Car Color" />
-                <TextField fx:id="numberOfSeatsField" layoutX="289.0" layoutY="373.0" promptText="Number Of Seats" />
+                <TextField fx:id="numberOfSeatsField" layoutX="289.0" layoutY="373.0" promptText="1 - 7" />
                 <TextField fx:id="carModelField" layoutX="289.0" layoutY="421.0" promptText="Car Model" />
                 <Button fx:id="addCarButton" layoutX="250.0" layoutY="477.0" mnemonicParsing="false" onAction="#addCar" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Add Car" textFill="WHITE" />
                 <!-- Add a label for displaying error messages -->
                 <Label fx:id="errorLabel" alignment="CENTER" layoutX="250.0" layoutY="515.0" style="-fx-font-weight: bold;" textFill="red" />
                 <!-- Add a label for displaying successful messages -->
                 <Label fx:id="successLabel" alignment="CENTER" layoutX="295.0" layoutY="515.0" style="-fx-font-weight: bold;" textFill="green" />
+            <Label layoutX="186.0" layoutY="242.0" text="Plate Number">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="186.0" layoutY="425.0" text="Car Model">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="186.0" layoutY="377.0" text="Number Of Seats">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="186.0" layoutY="333.0" text="Car Color">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="186.0" layoutY="284.0" text="Car Type">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
             </Pane>
 
             <Pane fx:id="panel2" onKeyPressed="#handleKeyPress3" style="-fx-background-color: #FFFFFF;" visible="false">
@@ -72,6 +98,31 @@
                 <Label fx:id="errorLabel3" alignment="CENTER" layoutX="250.0" layoutY="500.0" style="-fx-font-weight: bold;" textFill="red" />
                 <!-- Add a label for displaying successful messages -->
                 <Label fx:id="successLabel3" alignment="CENTER" layoutX="289.0" layoutY="500.0" style="-fx-font-weight: bold;" textFill="green" />
+            <Label layoutX="217.0" layoutY="255.0" text="First Name">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="217.0" layoutY="381.0" text="Phone">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="217.0" layoutY="297.0" text="Last Name">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="217.0" layoutY="423.0" text="Password">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="217.0" layoutY="339.0" text="Email">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
             </Pane>
 
             <Pane fx:id="panel3" style="-fx-background-color: #FFFFFF;" visible="false">
@@ -165,7 +216,7 @@
                 <!-- Add a label for displaying successful messages -->
                 <Label fx:id="successLabel4" alignment="CENTER" layoutX="265.0" layoutY="550.0" style="-fx-font-weight: bold;" textFill="green" />
             </Pane>
-            <Pane fx:id="panel6" style="-fx-background-color: #FFFFFF;" visible="true">
+            <Pane fx:id="panel6" style="-fx-background-color: #FFFFFF;">
                 <ImageView fitHeight="653.0" fitWidth="835.0" layoutX="39.0" layoutY="-38.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../images/Welcomepreview.png" />

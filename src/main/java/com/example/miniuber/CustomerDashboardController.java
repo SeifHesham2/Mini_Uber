@@ -219,8 +219,7 @@ public class CustomerDashboardController {
             errorLabel.setText("Please fill all the data and try again.");
     }
 
-    public void bookTrip(ActionEvent e) throws SQLException
-    {
+    public void bookTrip(ActionEvent e) throws SQLException, IOException {
         HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 275, 300);
         if(validateFields2())
         {
@@ -229,6 +228,7 @@ public class CustomerDashboardController {
                 Boolean done = Customer.RequestTrip(pickupField.getText(), destinationField.getText(), timeField.getText(), Integer.parseInt(priceField.getText()), PaymentFactory.getPaymentMethod(paymentMethodCombo.getValue()), customerID);
                 if(done)
                 {
+                    redirectToPayment(e);
                     successLabel2.setText("Trip booked successfully!");
                     dummyTextField2.requestFocus();
                     clearAllTextFields();
@@ -319,7 +319,7 @@ public class CustomerDashboardController {
         }
     }
 
-    public void handleKeyPress2(javafx.scene.input.KeyEvent event) throws SQLException {
+    public void handleKeyPress2(javafx.scene.input.KeyEvent event) throws SQLException, IOException {
         if (event.getCode() == KeyCode.ENTER) {
             // Trigger loginButton action
             bookTrip(new ActionEvent(bookTripButton, null));
@@ -539,5 +539,18 @@ public class CustomerDashboardController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
+    @FXML
+    private void redirectToPayment(ActionEvent e) throws IOException
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Payment.fxml"));
+        scene = new Scene(fxmlLoader.load(), 645, 500);
+
+        PaymentController paymentController = fxmlLoader.getController();
+        paymentController.initialize(customerID);
+
+        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 }

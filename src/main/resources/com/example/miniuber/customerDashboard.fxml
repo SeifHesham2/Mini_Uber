@@ -64,6 +64,16 @@
                 <Label fx:id="errorLabel" alignment="CENTER" layoutX="270.0" layoutY="505.0" style="-fx-font-weight: bold;" textFill="red" />
                 <!-- Add a label for displaying successful messages -->
                 <Label fx:id="successLabel" alignment="CENTER" layoutX="290.0" layoutY="505.0" style="-fx-font-weight: bold;" textFill="green" />
+            <Label layoutX="234.0" layoutY="313.0" text="Trip ID">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="189.0" layoutY="388.0" text="Description">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
             </Pane>
 
             <Pane fx:id="panel3" onKeyPressed="#handleKeyPress2" style="-fx-background-color: #FFFFFF;" visible="false">
@@ -75,7 +85,7 @@
                 <TextField fx:id="dummyTextField2" layoutX="0.0" layoutY="0.0" opacity="0.0" />
                 <TextField fx:id="pickupField" layoutX="282.0" layoutY="243.0" prefWidth="173.0" promptText="Pickup Point" />
                 <TextField fx:id="destinationField" layoutX="282.0" layoutY="289.0" prefWidth="173.0" promptText="Destination" />
-                <TextField fx:id="timeField" layoutX="282.0" layoutY="333.0" prefWidth="173.0" promptText="Time: yyyy-MM-dd HH:mm:ss" />
+                <TextField fx:id="timeField" layoutX="282.0" layoutY="333.0" prefWidth="173.0" promptText="yyyy-MM-dd HH:mm:ss" />
                 <TextField fx:id="priceField" layoutX="282.0" layoutY="375.0" prefWidth="173.0" promptText="Price" />
                 <ComboBox fx:id="paymentMethodCombo" layoutX="282.0" layoutY="420.0" prefWidth="173.0" promptText="Payment Method" style="-fx-border-radius: 20; -fx-background-radius: 20;" visibleRowCount="3" />
                 <Button fx:id="bookTripButton" layoutX="243.0" layoutY="483.0" mnemonicParsing="false" onAction="#bookTrip" prefHeight="34.0" prefWidth="260.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Book Trip" textFill="WHITE" />
@@ -83,6 +93,26 @@
                 <Label fx:id="errorLabel2" alignment="CENTER" layoutX="265.0" layoutY="520.0" style="-fx-font-weight: bold;" textFill="red" />
                 <!-- Add a label for displaying successful messages -->
                 <Label fx:id="successLabel2" alignment="CENTER" layoutX="295.0" layoutY="520.0" style="-fx-font-weight: bold;" textFill="green" />
+            <Label layoutX="205.0" layoutY="247.0" text="Pickup Point">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="205.0" layoutY="379.0" text="Price">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="205.0" layoutY="337.0" text="Time">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="205.0" layoutY="293.0" text="Destination">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
             </Pane>
 
             <Pane fx:id="panel4" onKeyPressed="#handleKeyPress3" style="-fx-background-color: #FFFFFF;" visible="false">
@@ -93,12 +123,22 @@
                 </ImageView>
                 <TextField fx:id="dummyTextField3" layoutX="0.0" layoutY="0.0" opacity="0.0" />
                 <TextField fx:id="tripIDRateField" layoutX="301.0" layoutY="325.0" promptText="Trip ID" />
-                <TextField fx:id="rateField" layoutX="354.0" layoutY="367.0" prefHeight="26.0" prefWidth="43.0" promptText="Rate" />
+                <TextField fx:id="rateField" layoutX="354.0" layoutY="367.0" prefHeight="26.0" prefWidth="43.0" promptText="1 - 5" />
                 <Button fx:id="rateButton" layoutX="262.0" layoutY="410.0" mnemonicParsing="false" onAction="#Rate" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Rate" textFill="WHITE" />
                 <!-- Add a label for displaying error messages -->
                 <Label fx:id="errorLabel3" alignment="CENTER" layoutX="275.0" layoutY="445.0" style="-fx-font-weight: bold;" textFill="red" />
                 <!-- Add a label for displaying successful messages -->
                 <Label fx:id="successLabel3" alignment="CENTER" layoutX="310.0" layoutY="445.0" style="-fx-font-weight: bold;" textFill="green" />
+            <Label layoutX="249.0" layoutY="329.0" text="Trip ID">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="317.0" layoutY="372.0" text="Rate">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
             </Pane>
 
             <Pane fx:id="panel5" onKeyPressed="#handleKeyPress4" style="-fx-background-color: #FFFFFF;" visible="false">
@@ -114,6 +154,7 @@
                 <TextField fx:id="passwordField" layoutX="299.0" layoutY="382.0" promptText="Password" />
                 <TextField fx:id="phoneField" layoutX="299.0" layoutY="429.0" promptText="Phone" />
                 <Button fx:id="updateButton" layoutX="256.0" layoutY="481.0" mnemonicParsing="false" onAction="#updateInfo" prefHeight="34.0" prefWidth="234.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Update" textFill="WHITE" />
+                <!-- Add a label for displaying error messages -->
                 <Label fx:id="errorLabel4" alignment="CENTER" layoutX="270.0" layoutY="520.0" style="-fx-font-weight: bold;" textFill="red" />
                 <!-- Add a label for displaying successful messages -->
                 <Label fx:id="successLabel4" alignment="CENTER" layoutX="282.0" layoutY="520.0" style="-fx-font-weight: bold;" textFill="green" />
@@ -143,7 +184,7 @@
                </font>
             </Label>
             </Pane>
-            <Pane fx:id="panel6" style="-fx-background-color: #FFFFFF;" visible="true">
+            <Pane fx:id="panel6" style="-fx-background-color: #FFFFFF;">
                 <ImageView fitHeight="653.0" fitWidth="835.0" layoutX="39.0" layoutY="-38.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../images/Welcomepreview.png" />

@@ -1,6 +1,8 @@
 package com.example.miniuber.classes;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.YearMonth;
 
 public class InsertToDatabase {
     private static final DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
@@ -177,6 +179,48 @@ public class InsertToDatabase {
                     }
                 } catch(SQLException e){
                     System.out.println("Failed to insert Complaint.");
+                    return false;
+                }
+            }
+        } finally {
+            dataBaseConnector.closeConnection();
+        }
+        return false;
+    }
+
+    public static Boolean InsertPayment(PaymentMethod payment) throws SQLException {
+        Connection connection = dataBaseConnector.connectToDatabase();
+        try {
+            String sql = "INSERT INTO payment (customerid , cardnumber , expiration_date , cvv , type) VALUES ( ? , ? , ? , ? , ?)";
+            try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                statement.setInt(1, payment.getCustomerID());
+                statement.setString(2, payment.getCardNumber());
+
+                YearMonth expirationYearMonth = payment.getExpirationDate();
+                LocalDate expirationLocalDate = expirationYearMonth.atDay(1); // Assuming day is 1 for the start of the month
+                java.sql.Date expirationDate = java.sql.Date.valueOf(expirationLocalDate);
+                statement.setDate(3, expirationDate);
+
+                statement.setString(4, payment.getCvv());
+                statement.setString(5, payment.getType());
+
+                try{
+                    int rowsInserted = statement.executeUpdate();
+                    if (rowsInserted > 0) {
+                        try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                            if (generatedKeys.next()) {
+                                int autoIncrementedID = generatedKeys.getInt(1);
+                                System.out.println("Auto-incremented ID: " + autoIncrementedID);
+                                payment.setCardID(autoIncrementedID);
+                            } else {
+                                System.out.println("Failed to retrieve auto-incremented ID.");
+                            }
+                        }
+                        System.out.println("Payment inserted successfully!");
+                        return true;
+                    }
+                } catch(SQLException e){
+                    System.out.println("Failed to insert Payment.");
                     return false;
                 }
             }
