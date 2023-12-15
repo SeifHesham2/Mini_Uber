@@ -2,7 +2,6 @@ package com.example.miniuber.classes;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Trip {
@@ -12,7 +11,7 @@ public class Trip {
     private LocalDateTime tripTime;
     private double tripPrice;
     private boolean isFinished;
-    private PaymentMethod paymentMethod;
+    private PaymentStrategy paymentStrategy;
     private int customerID;
     private int driverID;
 
@@ -21,61 +20,61 @@ public class Trip {
     }
 
     public Trip(int tripID, String pickupPoint, String destination, LocalDateTime tripTime, double tripPrice,
-            PaymentMethod paymentMethod, int customerID) throws SQLException {
+                PaymentStrategy paymentStrategy, int customerID) throws SQLException {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
         this.tripTime = tripTime;
         this.tripPrice = tripPrice;
-        this.paymentMethod = paymentMethod;
+        this.paymentStrategy = paymentStrategy;
         this.customerID = customerID;
         UpdateTrip();
     }
 
     public Trip(int tripID, int driverID, String pickupPoint, String destination, LocalDateTime tripTime, double tripPrice,
-                PaymentMethod paymentMethod, boolean isFinished) throws SQLException {
+                PaymentStrategy paymentStrategy, boolean isFinished) throws SQLException {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
         this.tripTime = tripTime;
         this.tripPrice = tripPrice;
         this.isFinished = isFinished;
-        this.paymentMethod = paymentMethod;
+        this.paymentStrategy = paymentStrategy;
         this.driverID = driverID;
         UpdateTrip();
     }
 
     public Trip(int tripID, String pickupPoint, String destination, LocalDateTime tripTime, double tripPrice,
-            boolean isFinished, PaymentMethod paymentMethod, int customerID) throws SQLException {
+                boolean isFinished, PaymentStrategy paymentStrategy, int customerID) throws SQLException {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
         this.tripTime = tripTime;
         this.tripPrice = tripPrice;
         this.isFinished = isFinished;
-        this.paymentMethod = paymentMethod;
+        this.paymentStrategy = paymentStrategy;
         this.customerID = customerID;
         UpdateTrip();
     }
 
-    public Trip(int tripID, String destination, String pickupPoint, LocalDateTime tripTime, double tripPrice, PaymentMethod paymentMethod, Boolean isFinished) throws SQLException {
+    public Trip(int tripID, String destination, String pickupPoint, LocalDateTime tripTime, double tripPrice, PaymentStrategy paymentStrategy, Boolean isFinished) throws SQLException {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
         this.tripTime = tripTime;
         this.tripPrice = tripPrice;
-        this.paymentMethod = paymentMethod;
+        this.paymentStrategy = paymentStrategy;
         this.isFinished = isFinished;
         UpdateTrip();
     }
 
-    public Trip(int tripID, String destination, String pickupPoint, LocalDateTime tripTime, double tripPrice, PaymentMethod paymentMethod) throws SQLException {
+    public Trip(int tripID, String destination, String pickupPoint, LocalDateTime tripTime, double tripPrice, PaymentStrategy paymentStrategy) throws SQLException {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
         this.tripTime = tripTime;
         this.tripPrice = tripPrice;
-        this.paymentMethod = paymentMethod;
+        this.paymentStrategy = paymentStrategy;
         UpdateTrip();
     }
 
@@ -135,12 +134,12 @@ public class Trip {
         isFinished = finished;
     }
 
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
+    public PaymentStrategy getPaymentMethod() {
+        return paymentStrategy;
     }
 
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setPaymentMethod(PaymentStrategy paymentStrategy) {
+        this.paymentStrategy = paymentStrategy;
     }
 
     public int getCustomerID() {

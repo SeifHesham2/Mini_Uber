@@ -28,12 +28,12 @@ public class Customer extends Person {
     }
 
     public static Boolean RequestTrip(String pickupPoint, String destination, String tripTime, double tripPrice,
-            PaymentMethod paymentMethod, int customerID) throws SQLException {
+                                      PaymentStrategy paymentStrategy, int customerID) throws SQLException {
         Trip trip = new Trip();
         trip.setPickupPoint(pickupPoint);
         trip.setDestination(destination);
         trip.setTripPrice(tripPrice);
-        trip.setPaymentMethod(paymentMethod);
+        trip.setPaymentMethod(paymentStrategy);
         trip.setCustomerID(customerID);
         trip.setTripTime(tripTime);
 
