@@ -10,26 +10,24 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class CustomerDashboardController {
+public class CustomerDashboardController implements PaymentCallback {
     @FXML
     private Pane panel1;
     @FXML
     private Pane panel2;
     @FXML
     private Pane panel3;
-    @FXML
-    private Pane panel4;
     @FXML
     private Pane panel5;
     @FXML
@@ -109,6 +107,7 @@ public class CustomerDashboardController {
     private String destination;
     private String time;
     private double price;
+    private String cardType;
     Customer customer = RetrieveFromDatabase.retrieveCustomer(customerID);
     public void initialize(int customerID) throws SQLException {
         this.customerID = customerID;
@@ -143,7 +142,7 @@ public class CustomerDashboardController {
         tripIDField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel, successLabel, 275, 290));
 
         // Create a list of payment methods in the combobox
-        ObservableList<String> paymentMethods = FXCollections.observableArrayList("Visa", "Paypal", "Cash");
+        ObservableList<String> paymentMethods = FXCollections.observableArrayList("Card", "Cash");
         // Set the items in the ComboBox
         paymentMethodCombo.setItems(paymentMethods);
 
@@ -211,18 +210,37 @@ public class CustomerDashboardController {
         {
             if(validateCriteria2(errorLabel2))
             {
-                Boolean done = Customer.RequestTrip(pickupField.getText(), destinationField.getText(), timeField.getText(), Integer.parseInt(priceField.getText()), PaymentFactory.getPaymentMethod(paymentMethodCombo.getValue()), customerID);
+                Boolean done = false;
+                if(paymentMethodCombo.getValue().equalsIgnoreCase("Card"))
+                {
+                    redirectToPayment(e);
+                    double price = Integer.parseInt(priceField.getText());
+                    if(cardType == null)
+                    {
+                        errorLabel2.setLayoutX(310);
+                        errorLabel2.setText("An error has occurred.");
+                        return;
+                    }
+                    if(cardType.equalsIgnoreCase("Paypal"))
+                        price *= 1.05;
+                    else if(cardType.equalsIgnoreCase("Visa"))
+                        price *= 1.03;
+                    done = Customer.RequestTrip(pickupField.getText(), destinationField.getText(), timeField.getText(), price, PaymentFactory.getPaymentMethod(cardType), customerID);
+                }
+                else
+                    done = Customer.RequestTrip(pickupField.getText(), destinationField.getText(), timeField.getText(), Integer.parseInt(priceField.getText()), PaymentFactory.getPaymentMethod("Cash"), customerID);
                 if(done)
                 {
-                    if(paymentMethodCombo.getValue().equalsIgnoreCase("Visa") || paymentMethodCombo.getValue().equalsIgnoreCase("Paypal"))
-                        redirectToPayment(e);
                     successLabel2.setText("Trip booked successfully!");
                     dummyTextField2.requestFocus();
                     clearAllTextFields();
                     refreshTableView();
                 }
                 else
+                {
+                    errorLabel2.setLayoutX(310);
                     errorLabel2.setText("An error has occurred.");
+                }
             }
         }
         else
@@ -328,6 +346,12 @@ public class CustomerDashboardController {
 
     private boolean validateCriteria2(Label errorLabel2)
     {
+        if(destinationField.getText().equalsIgnoreCase(pickupField.getText()))
+        {
+            errorLabel2.setLayoutX(250);
+            errorLabel2.setText("Pickup point cannot be same as destination.");
+            return false;
+        }
         if(priceField.getText().matches("\\d+\\.?\\d*"))
         {
             if(isValidDateTimeFormat(timeField.getText()))
@@ -344,7 +368,6 @@ public class CustomerDashboardController {
                 errorLabel2.setText("Please enter the time in given\nformat: yyyy-MM-dd HH:mm:ss");
                 return false;
             }
-
         }
         else
         {
@@ -376,13 +399,6 @@ public class CustomerDashboardController {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    public void restoreState() {
-        pickupField.setText(pickup);
-        destinationField.setText(destination);
-        timeField.setText(time);
-        priceField.setText(String.valueOf(price));
     }
 
     public void showPanel1(ActionEvent e) throws IOException
@@ -451,11 +467,29 @@ public class CustomerDashboardController {
         scene = new Scene(fxmlLoader.load(), 645, 500);
 
         PaymentController paymentController = fxmlLoader.getController();
-        paymentController.initialize(customerID, (Stage) ((Node) e.getSource()).getScene().getWindow());
+        paymentController.initialize(customerID, Double.parseDouble(priceField.getText()), (Stage) ((Node) e.getSource()).getScene().getWindow());
+
+        paymentController.setPaymentCallback(this);
+
 
         stage = new Stage();
+        Image icon = new Image("file:F:/ASU/7TH SEMESTER/Software Design Patterns/MiniUber/src/main/resources/com/example/images/img.png");
+        stage.getIcons().add(icon);
+        stage.setResizable(false);
         stage.initOwner(bookTripButton.getScene().getWindow());
         stage.setScene(scene);
         stage.showAndWait();
+    }
+
+    @Override
+    public void onPaymentSubmitted(boolean isPaypalSelected) {
+        // Handle the callback in CustomerDashboardController
+        if (isPaypalSelected) {
+            System.out.println("Paypal radio button selected");
+            cardType = "Paypal";
+        } else {
+            System.out.println("Visa radio button selected");
+            cardType = "Visa";
+        }
     }
 }

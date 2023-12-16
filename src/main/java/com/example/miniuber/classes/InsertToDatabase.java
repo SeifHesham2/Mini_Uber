@@ -191,7 +191,7 @@ public class InsertToDatabase {
     public static Boolean InsertPayment(PaymentStrategy payment) throws SQLException {
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
-            String sql = "INSERT INTO payment (customerid , cardnumber , expiration_date , cvv , type) VALUES ( ? , ? , ? , ? , ?)";
+            String sql = "INSERT INTO payments (customerid , cardnumber , expiration_date , cvv , type) VALUES ( ? , ? , ? , ? , ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setInt(1, payment.getCustomerID());
                 statement.setString(2, payment.getCardNumber());

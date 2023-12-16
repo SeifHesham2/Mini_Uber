@@ -86,7 +86,7 @@
                 <TextField fx:id="destinationField" layoutX="282.0" layoutY="289.0" prefWidth="173.0" promptText="Destination" />
                 <TextField fx:id="timeField" layoutX="282.0" layoutY="333.0" prefWidth="173.0" promptText="yyyy-MM-dd HH:mm:ss" />
                 <TextField fx:id="priceField" layoutX="282.0" layoutY="375.0" prefWidth="173.0" promptText="Price" />
-                <ComboBox fx:id="paymentMethodCombo" layoutX="282.0" layoutY="420.0" prefWidth="173.0" promptText="Payment Method" style="-fx-border-radius: 20; -fx-background-radius: 20;" visibleRowCount="3" />
+                <ComboBox fx:id="paymentMethodCombo" layoutX="282.0" layoutY="420.0" prefWidth="173.0" promptText="Payment Method" style="-fx-border-radius: 20; -fx-background-radius: 20;" visibleRowCount="2" />
                 <Button fx:id="bookTripButton" layoutX="243.0" layoutY="483.0" mnemonicParsing="false" onAction="#bookTrip" prefHeight="34.0" prefWidth="260.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Book Trip" textFill="WHITE" />
                 <!-- Add a label for displaying error messages -->
                 <Label fx:id="errorLabel2" alignment="CENTER" layoutX="265.0" layoutY="520.0" style="-fx-font-weight: bold;" textFill="red" />

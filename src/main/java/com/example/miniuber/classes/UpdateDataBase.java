@@ -36,9 +36,9 @@ public class UpdateDataBase {
                 statement.setInt(1, tripID);
                 int rowsUpdated = statement.executeUpdate();
                 if (rowsUpdated > 0) {
-                    System.out.println("Car updated successfully!");
+                    System.out.println("Trip updated successfully!");
                 } else {
-                    System.out.println("Failed to update Car.");
+                    System.out.println("Failed to update Trip.");
                 }
             }
         } finally {

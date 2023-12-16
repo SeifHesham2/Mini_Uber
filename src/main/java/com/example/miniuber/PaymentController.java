@@ -44,12 +44,19 @@ public class PaymentController {
     private Label successLabel;
     @FXML
     private Button submitPaymentButton;
+    @FXML
+    private Label finalPrice;
     private Stage stage;
-    private Scene scene;
+
     protected int customerID;
-    public void initialize(int customerID, Stage stage) {
+    protected double tripPrice;
+    private PaymentStrategy payment = null;
+    private PaymentProcessor processor;
+    private PaymentCallback paymentCallback;
+    public void initialize(int customerID, double tripPrice ,Stage stage) {
         this.customerID = customerID;
         this.stage = stage;
+        this.tripPrice = tripPrice;
 
         dummyTextField.requestFocus();
 
@@ -62,6 +69,11 @@ public class PaymentController {
         visaRadio.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel, successLabel, 63, 63));
         paypalRadio.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel, successLabel, 63, 63));
     }
+
+    public void setPaymentCallback(PaymentCallback paymentCallback) {
+        this.paymentCallback = paymentCallback;
+    }
+
     public void register(ActionEvent e) throws SQLException {
         HandlingErrors.hideBothLabels(errorLabel, successLabel, 63, 63);
 
@@ -75,7 +87,7 @@ public class PaymentController {
                 YearMonth yearMonth = parseYearMonth(expirationDateField.getText());
                 if(yearMonth == null)
                 {
-                    System.out.println("Invalid input formattt");
+                    System.out.println("Invalid input format");
                     errorLabel.setLayoutX(55);
                     errorLabel.setText("Please enter a valid MM/YY format.");
                 }
@@ -83,14 +95,12 @@ public class PaymentController {
                 {
                     System.out.println("Parsed YearMonth: " + yearMonth);
 
-                    PaymentStrategy payment = null;
                     if(paypalRadio.isSelected())
-                        payment = new Paypal(cardNumberField.getText(), CVVField.getText(), yearMonth, customerID);
-                    else if(visaRadio.isSelected())
-                        payment = new Visa(cardNumberField.getText(), CVVField.getText(), yearMonth, customerID);
+                        payment = new Paypal(cardNumberField.getText().replaceAll("\\s+",""), CVVField.getText().replaceAll("\\s+",""), yearMonth, customerID);
+                    if(visaRadio.isSelected())
+                        payment = new Visa(cardNumberField.getText().replaceAll("\\s+",""), CVVField.getText().replaceAll("\\s+",""), yearMonth, customerID);
 
                     Boolean done = InsertToDatabase.InsertPayment(payment);
-                    done = true;
                     if(done)
                     {
                         dummyTextField.requestFocus();
@@ -169,7 +179,9 @@ public class PaymentController {
         timeline.setOnFinished(event -> {
             onComplete.run();
             submitPaymentButton.getScene().getWindow().hide();
-            //
+            if (paymentCallback != null) {
+                paymentCallback.onPaymentSubmitted(paypalRadio.isSelected());
+            }
         });
 
         timeline.play();
@@ -179,6 +191,28 @@ public class PaymentController {
         if (event.getCode() == KeyCode.ENTER) {
             // Trigger loginButton action
             register(new ActionEvent(submitPaymentButton, null));
+        }
+    }
+
+    public void handleMouseClick(ActionEvent e)
+    {
+        if(paypalRadio.isSelected())
+        {
+            payment = new Paypal();
+            processor = new PaymentProcessor(payment);
+
+            double price = processor.processPayment(tripPrice);
+            finalPrice.setText("Trip price after applying fees = " + price);
+            payment = null;
+        }
+        else if(visaRadio.isSelected())
+        {
+            payment = new Visa();
+            processor = new PaymentProcessor(payment);
+
+            double price = processor.processPayment(tripPrice);
+            finalPrice.setText("Trip price after applying fees = " + price);
+            payment = null;
         }
     }
 
