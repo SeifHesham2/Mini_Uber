@@ -73,9 +73,9 @@ public class PaymentController {
             if(HandlingErrors.validateEmailPhoneCriteria(phone, emailField, errorLabel) && validateCVVAndCardNumber())
             {
                 YearMonth yearMonth = parseYearMonth(expirationDateField.getText());
-                if(yearMonth != null)
+                if(yearMonth == null)
                 {
-                    System.out.println("Invalid input format");
+                    System.out.println("Invalid input formattt");
                     errorLabel.setLayoutX(55);
                     errorLabel.setText("Please enter a valid MM/YY format.");
                 }

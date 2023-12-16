@@ -6,7 +6,6 @@ import java.util.*;
 public class Driver extends Person {
 
     private int NumberOfTrips;
-    private int rating;
     private boolean haveCar;
 
     public Driver() {
@@ -16,10 +15,9 @@ public class Driver extends Person {
         super(firstName, lastName, email, password, phone);
     }
 
-    public Driver(String firstName, String lastName, String email, String password, String phone, int id, int numberOfTrips, int rating, boolean haveCar) {
+    public Driver(String firstName, String lastName, String email, String password, String phone, int id, int numberOfTrips, boolean haveCar) {
         super(firstName, lastName, email, password, phone, id);
         NumberOfTrips = numberOfTrips;
-        this.rating = rating;
         this.haveCar = haveCar;
     }
 
@@ -82,14 +80,6 @@ public class Driver extends Person {
 
     public void setNumberOfTrips(int numberOfTrips) {
         NumberOfTrips = numberOfTrips;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
     }
 
     public boolean isHaveCar() {

@@ -106,7 +106,6 @@ public class RetrieveFromDatabase {
                             rS.getString("phone"),
                             rS.getInt("driverID"),
                             rS.getInt("number_of_trips"),
-                            rS.getInt("rating"),
                             rS.getBoolean("have_car")
                     );
                 } else {
@@ -162,7 +161,6 @@ public class RetrieveFromDatabase {
                                 rS.getString("phone"),
                                 rS.getInt("driverID"),
                                 rS.getInt("number_of_trips"),
-                                rS.getInt("rating"),
                                 rS.getBoolean("have_car") );
                         driverList.add(driver);
                     }
@@ -272,8 +270,7 @@ public class RetrieveFromDatabase {
                             rS.getString("email"),
                             rS.getString("UserPassword"),
                             rS.getString("phone"),
-                            rS.getInt("CustomerID"),
-                            rS.getInt("rating")
+                            rS.getInt("CustomerID")
                     );
                 } else {
                     System.out.println("The CustomerID is NotFound !!");

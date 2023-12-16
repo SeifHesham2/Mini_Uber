@@ -7,14 +7,11 @@ import java.util.List;
 import java.sql.*;
 
 public class Customer extends Person {
-    private int rating;
-
     public Customer() {
     }
 
-    public Customer(String firstName, String lastName, String email, String password, String phone, int id, int rating) {
+    public Customer(String firstName, String lastName, String email, String password, String phone, int id) {
         super(firstName, lastName, email, password, phone, id);
-        this.rating = rating;
     }
 
     public Customer(String firstName, String lastName, String email, String phone, String password) {
@@ -47,11 +44,6 @@ public class Customer extends Person {
             return false;
     }
 
-    public static Boolean RateDriver(int tripID, int rating) {
-        // TODO
-        return null;
-    }
-
     public static Boolean SendComplaint(String description, int tripId, int customerID, Label errorLabel) throws SQLException {
         int customerid = RetrieveFromDatabase.retrieveTrip(tripId);
         if(customerid != customerID)
@@ -77,14 +69,6 @@ public class Customer extends Person {
 
         Boolean valid = UpdateDataBase.UpdateCustomer(customer);
         return valid;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
     }
 
 }
