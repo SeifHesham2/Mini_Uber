@@ -90,7 +90,7 @@ public class InsertToDatabase {
                 Timestamp timestamp = Timestamp.valueOf(trip.getTripTime());
                 statement.setTimestamp(3, timestamp);
                 statement.setDouble(4, trip.getTripPrice());
-                statement.setString(5, trip.getPaymentMethod().getType());
+                statement.setString(5, trip.getType());
                 statement.setString(6, Integer.toString(trip.getCustomerID()));
                 try{
                     int rowsInserted = statement.executeUpdate();

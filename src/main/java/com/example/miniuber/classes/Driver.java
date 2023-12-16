@@ -7,6 +7,7 @@ public class Driver extends Person {
 
     private int NumberOfTrips;
     private boolean haveCar;
+    private double rating;
 
     public Driver() {
     }
@@ -15,10 +16,11 @@ public class Driver extends Person {
         super(firstName, lastName, email, password, phone);
     }
 
-    public Driver(String firstName, String lastName, String email, String password, String phone, int id, int numberOfTrips, boolean haveCar) {
+    public Driver(String firstName, String lastName, String email, String password, String phone, int id, int numberOfTrips, boolean haveCar, double rating) {
         super(firstName, lastName, email, password, phone, id);
         NumberOfTrips = numberOfTrips;
         this.haveCar = haveCar;
+        this.rating = rating;
     }
 
     public static List<Trip> ViewAvailableTrips() {
@@ -51,7 +53,7 @@ public class Driver extends Person {
             System.out.println("Destination: " + trip.getDestination());
             System.out.println("Trip Time: " + trip.getTripTime());
             System.out.println("Trip Price: " + trip.getTripPrice());
-            System.out.println("Payment Method: " + trip.getPaymentMethod());
+            System.out.println("Payment Method: " + trip.getType());
             System.out.println("Customer ID: " + trip.getCustomerID());
             System.out.println("------------------------------");
         }
@@ -88,5 +90,13 @@ public class Driver extends Person {
 
     public void setHaveCar(boolean haveCar) {
         this.haveCar = haveCar;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 }

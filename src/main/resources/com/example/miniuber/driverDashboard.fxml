@@ -35,28 +35,32 @@
     <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="730.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
         <!-- Panels -->
         <Pane fx:id="panel1" style="-fx-background-color: #FFFFFF;" visible="false">
-            <TableView fx:id="tableViewInPanel1" layoutX="76.0" layoutY="79.0" prefHeight="419.0" prefWidth="579.0" style="-fx-background-color: #FFFFFF;">
-                <columns>
-                    <!-- Table for displaying trip information -->
-                    <TableColumn fx:id="tripIdColumn1" prefWidth="80.0" text="Trip ID" />
-                    <TableColumn fx:id="destinationColumn1" prefWidth="120.0" text="Destination" />
-                    <TableColumn fx:id="pickupColumn1" prefWidth="100.0" text="Package" />
-                    <TableColumn fx:id="timeColumn1" prefWidth="80.0" text="Time" />
-                    <TableColumn fx:id="priceColumn1" prefWidth="80.0" text="Price" />
-                    <TableColumn fx:id="paymentTypeColumn1" prefWidth="120.0" text="Payment Type" />
-                </columns>
-            </TableView>
             <!-- Add a label for displaying successful messages -->
             <Label fx:id="successLabel1" layoutX="210.0" layoutY="500.0" prefHeight="35.0" prefWidth="300.0" style="-fx-font-weight: bold;" textFill="green">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label layoutX="121.0" layoutY="14.0" text="Press on a row to assign the trip to yourself" textFill="#34495e">
+            <Label fx:id="helperLabel" layoutX="121.0" layoutY="14.0" text="Press on a row to assign the trip to yourself" textFill="#34495e">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
+            <Label fx:id="dontHaveCarError" layoutX="35.0" layoutY="126.0" prefHeight="333.0" prefWidth="704.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tableViewInPanel1" layoutX="76.0" layoutY="83.0" prefHeight="419.0" prefWidth="579.0" style="-fx-background-color: #FFFFFF;">
+               <columns>
+                  <TableColumn fx:id="tripIdColumn1" prefWidth="80.0" text="Trip ID" />
+                  <TableColumn fx:id="destinationColumn1" prefWidth="120.0" text="Destination" />
+                  <TableColumn fx:id="pickupColumn1" prefWidth="100.0" text="Package" />
+                  <TableColumn fx:id="timeColumn1" prefWidth="80.0" text="Time" />
+                  <TableColumn fx:id="priceColumn1" prefWidth="80.0" text="Price" />
+                  <TableColumn fx:id="paymentTypeColumn1" prefWidth="120.0" text="Payment Type" />
+               </columns>
+            </TableView>
         </Pane>
 
         <Pane fx:id="panel2" style="-fx-background-color: #FFFFFF;" visible="false">
@@ -116,7 +120,7 @@
                 </font>
             </Label>
         </Pane>
-        <Pane fx:id="panel4" style="-fx-background-color: #FFFFFF;" visible="true">
+        <Pane fx:id="panel4" style="-fx-background-color: #FFFFFF;">
             <ImageView fitHeight="653.0" fitWidth="835.0" layoutX="39.0" layoutY="-38.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../images/Welcomepreview.png" />

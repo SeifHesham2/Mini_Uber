@@ -49,7 +49,7 @@ public class DriverDashboardController {
     @FXML
     private TableColumn<Trip, Double> priceColumn;
     @FXML
-    private TableColumn<Trip, PaymentStrategy> paymentTypeColumn;
+    private TableColumn<Trip, String> paymentTypeColumn;
     @FXML
     private TableColumn<Trip, Boolean> isFinished;
     private ObservableList<Trip> data = FXCollections.observableArrayList(); // YourDataType should be a class representing your data
@@ -71,7 +71,7 @@ public class DriverDashboardController {
     @FXML
     private TableColumn<Trip, Double> priceColumn1;
     @FXML
-    private TableColumn<Trip, PaymentStrategy> paymentTypeColumn1;
+    private TableColumn<Trip, String> paymentTypeColumn1;
     private ObservableList<Trip> data1 = FXCollections.observableArrayList(); // YourDataType should be a class representing your data
     @FXML
     private TextField firstNameField;
@@ -91,6 +91,10 @@ public class DriverDashboardController {
     private Label successLabel4;
     @FXML
     private TextField dummyTextField;
+    @FXML
+    private Label dontHaveCarError;
+    @FXML
+    private Label helperLabel;
     private Stage stage;
     private Scene scene;
     private int driverID;
@@ -102,6 +106,9 @@ public class DriverDashboardController {
 
         // Set focus to the dummyTextField
         dummyTextField.requestFocus();
+
+        dontHaveCarError.setText("");
+        helperLabel.setText("Press on a row to assign the trip to yourself");
 
         // Set user information in the text fields
         firstNameField.setText(driver.getFirstName());
@@ -123,7 +130,7 @@ public class DriverDashboardController {
         pickupColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPickupPoint()));
         timeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTripTime()));
         priceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getTripPrice()).asObject());
-        paymentTypeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPaymentMethod()));
+        paymentTypeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getType()));
         isFinished.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().isFinished()));
         isFinished.setCellFactory(new Callback<TableColumn<Trip, Boolean>, TableCell<Trip, Boolean>>() {
             @Override
@@ -146,41 +153,50 @@ public class DriverDashboardController {
         List<Trip> tripList = Driver.ViewTripHistory(driverID);
         for (Trip t : tripList) {
             // Add sample data (replace this with your actual data loading logic)
-            data.add(new Trip(t.getTripID(), t.getDestination(), t.getPickupPoint(), t.getTripTime(), t.getTripPrice(), t.getPaymentMethod(), t.isFinished()));
+            data.add(new Trip(t.getTripID(), t.getDestination(), t.getPickupPoint(), t.getTripTime(), t.getTripPrice(), t.getType(), t.isFinished()));
         }
         // Set data to the table
         tableViewInPanel2.setItems(data);
 
-        // SETTING PANEL AVAILABLE TRIPS
-        tripIdColumn1.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getTripID()).asObject());
-        destinationColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDestination()));
-        pickupColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPickupPoint()));
-        timeColumn1.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTripTime()));
-        priceColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getTripPrice()).asObject());
-        paymentTypeColumn1.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPaymentMethod()));
-
-        List<Trip> tripList1 = Driver.ViewAvailableTrips();
-        for (Trip t : tripList1) {
-            // Add sample data (replace this with your actual data loading logic)
-            data1.add(new Trip(t.getTripID(), t.getDestination(), t.getPickupPoint(), t.getTripTime(), t.getTripPrice(), t.getPaymentMethod()));
+        if(!driver.isHaveCar())
+        {
+            dontHaveCarError.setText("You currently don't have a car assigned to work with.\nWait for an employee to assign a car for you");
+            helperLabel.setText("");
+            tableViewInPanel1.setVisible(false);
         }
-        // Set data to the table
-        tableViewInPanel1.setItems(data1);
+        else
+        {
+            // SETTING PANEL AVAILABLE TRIPS
+            tripIdColumn1.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getTripID()).asObject());
+            destinationColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDestination()));
+            pickupColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPickupPoint()));
+            timeColumn1.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTripTime()));
+            priceColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getTripPrice()).asObject());
+            paymentTypeColumn1.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getType()));
 
-        tableViewInPanel1.setRowFactory(tv -> {
-            TableRow<Trip> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1) {
-                    Trip selectedTrip = row.getItem();
-                    try {
-                        handleRowClick(selectedTrip);
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
+            List<Trip> tripList1 = Driver.ViewAvailableTrips();
+            for (Trip t : tripList1) {
+                // Add sample data (replace this with your actual data loading logic)
+                data1.add(new Trip(t.getTripID(), t.getDestination(), t.getPickupPoint(), t.getTripTime(), t.getTripPrice(), t.getType()));
+            }
+            // Set data to the table
+            tableViewInPanel1.setItems(data1);
+
+            tableViewInPanel1.setRowFactory(tv -> {
+                TableRow<Trip> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1) {
+                        Trip selectedTrip = row.getItem();
+                        try {
+                            handleRowClick(selectedTrip);
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
-                }
+                });
+                return row;
             });
-            return row;
-        });
+        }
     }
 
     public void updateInfo(ActionEvent e) throws SQLException

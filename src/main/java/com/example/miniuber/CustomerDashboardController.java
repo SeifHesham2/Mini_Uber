@@ -29,6 +29,8 @@ public class CustomerDashboardController implements PaymentCallback {
     @FXML
     private Pane panel3;
     @FXML
+    private Pane panel4;
+    @FXML
     private Pane panel5;
     @FXML
     private Pane panel6;
@@ -46,7 +48,7 @@ public class CustomerDashboardController implements PaymentCallback {
     @FXML
     private TableColumn<Trip, Double> priceColumn;
     @FXML
-    private TableColumn<Trip, PaymentStrategy> paymentTypeColumn;
+    private TableColumn<Trip, String> paymentTypeColumn;
     @FXML
     private TableColumn<Trip, Boolean> isFinished;
     @FXML
@@ -76,6 +78,16 @@ public class CustomerDashboardController implements PaymentCallback {
     private Label errorLabel2;
     @FXML
     private Label successLabel2;
+    @FXML
+    private TextField driverIDRateField;
+    @FXML
+    private TextField rateField;
+    @FXML
+    private Button rateButton;
+    @FXML
+    private Label errorLabel3;
+    @FXML
+    private Label successLabel3;
     @FXML
     private Button bookTripButton;
     @FXML
@@ -132,6 +144,9 @@ public class CustomerDashboardController implements PaymentCallback {
         passwordField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel4, successLabel4, 270.0, 282.0));
         phoneField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel4, successLabel4, 270.0, 282.0));
 
+        driverIDRateField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel3, successLabel3, 270, 305));
+        rateField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel3, successLabel3, 270, 305));
+
         pickupField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 275, 300));
         destinationField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 275, 300));
         priceField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 275, 300));
@@ -153,7 +168,7 @@ public class CustomerDashboardController implements PaymentCallback {
         pickupColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPickupPoint()));
         timeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTripTime()));
         priceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getTripPrice()).asObject());
-        paymentTypeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPaymentMethod()));
+        paymentTypeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getType()));
         driverIdColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getDriverID()).asObject());
         isFinished.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().isFinished()));
         isFinished.setCellFactory(new Callback<TableColumn<Trip, Boolean>, TableCell<Trip, Boolean>>() {
@@ -177,7 +192,7 @@ public class CustomerDashboardController implements PaymentCallback {
         List<Trip> tripList = Customer.PreviousTripsDetails(customerID);
         for (Trip t : tripList) {
             // Add sample data (replace this with your actual data loading logic)
-            data.add(new Trip(t.getTripID(), t.getDriverID(), t.getPickupPoint(), t.getDestination(), t.getTripTime(), t.getTripPrice(), t.getPaymentMethod(), t.isFinished()));
+            data.add(new Trip(t.getTripID(), t.getDriverID(), t.getPickupPoint(), t.getDestination(), t.getTripTime(), t.getTripPrice(), t.getType(), t.isFinished()));
         }
         // Set data to the table
         tableViewInPanel1.setItems(data);
@@ -225,10 +240,10 @@ public class CustomerDashboardController implements PaymentCallback {
                         price *= 1.05;
                     else if(cardType.equalsIgnoreCase("Visa"))
                         price *= 1.03;
-                    done = Customer.RequestTrip(pickupField.getText(), destinationField.getText(), timeField.getText(), price, PaymentFactory.getPaymentMethod(cardType), customerID);
+                    done = Customer.RequestTrip(pickupField.getText(), destinationField.getText(), timeField.getText(), price, cardType, customerID);
                 }
                 else
-                    done = Customer.RequestTrip(pickupField.getText(), destinationField.getText(), timeField.getText(), Integer.parseInt(priceField.getText()), PaymentFactory.getPaymentMethod("Cash"), customerID);
+                    done = Customer.RequestTrip(pickupField.getText(), destinationField.getText(), timeField.getText(), Integer.parseInt(priceField.getText()), cardType, customerID);
                 if(done)
                 {
                     successLabel2.setText("Trip booked successfully!");
@@ -254,6 +269,45 @@ public class CustomerDashboardController implements PaymentCallback {
         List<Trip> tripList = Customer.PreviousTripsDetails(customerID);
         // Set data to the table
         tableViewInPanel1.getItems().addAll(tripList);
+    }
+
+    public void Rate(ActionEvent e) throws SQLException
+    {
+        HandlingErrors.hideBothLabels(errorLabel3, successLabel3, 270, 305);
+        if(validateFields3())
+        {
+            if(validateCriteria3(errorLabel3))
+            {
+                List<Trip> trips = RetrieveFromDatabase.retrieveCustomerTripsHistory(customerID);
+
+                Boolean valid = false;
+                for(Trip trip : trips)
+                {
+                    if(trip.getDriverID() == Integer.parseInt(driverIDRateField.getText()))
+                        valid = true;
+                }
+
+                if(!valid)
+                {
+                    System.out.println("You didn't take a trip with this driver.");
+                    errorLabel3.setLayoutX(270.0);
+                    errorLabel3.setText("You didn't take a trip with this driver.");
+                }
+                else
+                {
+                    Boolean done = Customer.RateDriver(Integer.parseInt(driverIDRateField.getText()), Integer.parseInt(rateField.getText()));
+                    if(done)
+                        successLabel3.setText("Rate added successfully!");
+                    else
+                    {
+                        errorLabel3.setLayoutX(310.0);
+                        errorLabel3.setText("An error has occurred.");
+                    }
+                }
+            }
+        }
+        else
+            errorLabel3.setText("Please fill all the data and try again.");
     }
 
     public void updateInfo(ActionEvent e) throws SQLException
@@ -296,6 +350,13 @@ public class CustomerDashboardController implements PaymentCallback {
         }
     }
 
+    public void handleKeyPress3(javafx.scene.input.KeyEvent event) throws SQLException {
+        if (event.getCode() == KeyCode.ENTER) {
+            // Trigger loginButton action
+            Rate(new ActionEvent(rateButton, null));
+        }
+    }
+
     public void handleKeyPress4(javafx.scene.input.KeyEvent event) throws SQLException {
         if (event.getCode() == KeyCode.ENTER) {
             // Trigger loginButton action
@@ -333,6 +394,12 @@ public class CustomerDashboardController implements PaymentCallback {
                 && !timeField.getText().trim().isEmpty()
                 && !priceField.getText().trim().isEmpty()
                 && isPaymentMethodSelected;
+    }
+
+    private boolean validateFields3() {
+        // Check if all required fields are filled in
+        return !driverIDRateField.getText().trim().isEmpty()
+                && !rateField.getText().trim().isEmpty();
     }
 
     private boolean validateFields4() {
@@ -377,6 +444,36 @@ public class CustomerDashboardController implements PaymentCallback {
         }
     }
 
+    private boolean validateCriteria3(Label errorLabel3)
+    {
+        if(driverIDRateField.getText().matches("\\d+"))
+        {
+            if(rateField.getText().matches("\\d+"))
+            {
+                if(Integer.parseInt(rateField.getText()) >= 1 && Integer.parseInt(rateField.getText()) <= 5)
+                    return true;
+                else
+                {
+                    errorLabel3.setLayoutX(270.0);
+                    errorLabel3.setText("Please enter a rate number from 1 to 5.");
+                    return false;
+                }
+            }
+            else
+            {
+                errorLabel3.setLayoutX(270.0);
+                errorLabel3.setText("Please enter a rate number from 1 to 5.");
+                return false;
+            }
+        }
+        else
+        {
+            errorLabel3.setLayoutX(290);
+            errorLabel3.setText("Please enter a valid trip ID.");
+            return false;
+        }
+    }
+
     private boolean isValidDateTimeFormat(String dateTime) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -406,6 +503,7 @@ public class CustomerDashboardController implements PaymentCallback {
         panel1.setVisible(true);
         panel2.setVisible(false);
         panel3.setVisible(false);
+        panel4.setVisible(false);
         panel5.setVisible(false);
         panel6.setVisible(false);
 
@@ -416,6 +514,7 @@ public class CustomerDashboardController implements PaymentCallback {
         panel1.setVisible(false);
         panel2.setVisible(true);
         panel3.setVisible(false);
+        panel4.setVisible(false);
         panel5.setVisible(false);
         panel6.setVisible(false);
 
@@ -426,10 +525,21 @@ public class CustomerDashboardController implements PaymentCallback {
         panel1.setVisible(false);
         panel2.setVisible(false);
         panel3.setVisible(true);
+        panel4.setVisible(false);
         panel5.setVisible(false);
         panel6.setVisible(false);
 
         clearAllTextFields();
+    }
+
+    public void showPanel4(ActionEvent e) throws IOException
+    {
+        panel1.setVisible(false);
+        panel2.setVisible(false);
+        panel3.setVisible(false);
+        panel4.setVisible(true);
+        panel5.setVisible(false);
+        panel6.setVisible(false);
     }
 
     public void showPanel5(ActionEvent e) throws IOException
@@ -437,6 +547,7 @@ public class CustomerDashboardController implements PaymentCallback {
         panel1.setVisible(false);
         panel2.setVisible(false);
         panel3.setVisible(false);
+        panel4.setVisible(false);
         panel5.setVisible(true);
         panel6.setVisible(false);
 
@@ -486,7 +597,7 @@ public class CustomerDashboardController implements PaymentCallback {
         // Handle the callback in CustomerDashboardController
         if (isPaypalSelected) {
             System.out.println("Paypal radio button selected");
-            cardType = "Paypal";
+            cardType = "PayPal";
         } else {
             System.out.println("Visa radio button selected");
             cardType = "Visa";

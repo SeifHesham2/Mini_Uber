@@ -11,7 +11,7 @@ public class Trip {
     private LocalDateTime tripTime;
     private double tripPrice;
     private boolean isFinished;
-    private PaymentStrategy paymentStrategy;
+    private String type;
     private int customerID;
     private int driverID;
 
@@ -20,61 +20,61 @@ public class Trip {
     }
 
     public Trip(int tripID, String pickupPoint, String destination, LocalDateTime tripTime, double tripPrice,
-                PaymentStrategy paymentStrategy, int customerID) throws SQLException {
+                String type, int customerID) throws SQLException {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
         this.tripTime = tripTime;
         this.tripPrice = tripPrice;
-        this.paymentStrategy = paymentStrategy;
+        this.type = type;
         this.customerID = customerID;
         UpdateTrip();
     }
 
     public Trip(int tripID, int driverID, String pickupPoint, String destination, LocalDateTime tripTime, double tripPrice,
-                PaymentStrategy paymentStrategy, boolean isFinished) throws SQLException {
+                String type, boolean isFinished) throws SQLException {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
         this.tripTime = tripTime;
         this.tripPrice = tripPrice;
         this.isFinished = isFinished;
-        this.paymentStrategy = paymentStrategy;
+        this.type = type;
         this.driverID = driverID;
         UpdateTrip();
     }
 
     public Trip(int tripID, String pickupPoint, String destination, LocalDateTime tripTime, double tripPrice,
-                boolean isFinished, PaymentStrategy paymentStrategy, int customerID) throws SQLException {
+                boolean isFinished, String type, int customerID) throws SQLException {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
         this.tripTime = tripTime;
         this.tripPrice = tripPrice;
         this.isFinished = isFinished;
-        this.paymentStrategy = paymentStrategy;
+        this.type = type;
         this.customerID = customerID;
         UpdateTrip();
     }
 
-    public Trip(int tripID, String destination, String pickupPoint, LocalDateTime tripTime, double tripPrice, PaymentStrategy paymentStrategy, Boolean isFinished) throws SQLException {
+    public Trip(int tripID, String destination, String pickupPoint, LocalDateTime tripTime, double tripPrice, String type, Boolean isFinished) throws SQLException {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
         this.tripTime = tripTime;
         this.tripPrice = tripPrice;
-        this.paymentStrategy = paymentStrategy;
+        this.type = type;
         this.isFinished = isFinished;
         UpdateTrip();
     }
 
-    public Trip(int tripID, String destination, String pickupPoint, LocalDateTime tripTime, double tripPrice, PaymentStrategy paymentStrategy) throws SQLException {
+    public Trip(int tripID, String destination, String pickupPoint, LocalDateTime tripTime, double tripPrice, String type) throws SQLException {
         this.tripID = tripID;
         this.pickupPoint = pickupPoint;
         this.destination = destination;
         this.tripTime = tripTime;
         this.tripPrice = tripPrice;
-        this.paymentStrategy = paymentStrategy;
+        this.type = type;
         UpdateTrip();
     }
 
@@ -134,12 +134,12 @@ public class Trip {
         isFinished = finished;
     }
 
-    public PaymentStrategy getPaymentMethod() {
-        return paymentStrategy;
+    public String getType() {
+        return type;
     }
 
-    public void setPaymentMethod(PaymentStrategy paymentStrategy) {
-        this.paymentStrategy = paymentStrategy;
+    public void setPaymentMethod(String type) {
+        this.type = type;
     }
 
     public int getCustomerID() {

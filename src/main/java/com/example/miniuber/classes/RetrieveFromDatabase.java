@@ -21,7 +21,7 @@ public class RetrieveFromDatabase {
                     while (rS.next()) {
                         Trip trip = new Trip(rS.getInt("tripID"), rS.getString("pickup_point"),
                                 rS.getString("destination"), rS.getTimestamp("trip_time").toLocalDateTime(),
-                                rS.getDouble("trip_price"), PaymentFactory.getPaymentMethod("payment_method"),
+                                rS.getDouble("trip_price"), rS.getString("payment_method"),
                                 rS.getInt("customerID"));
                         trips.add(trip);
                     }
@@ -106,7 +106,8 @@ public class RetrieveFromDatabase {
                             rS.getString("phone"),
                             rS.getInt("driverID"),
                             rS.getInt("number_of_trips"),
-                            rS.getBoolean("have_car")
+                            rS.getBoolean("have_car"),
+                            rS.getDouble("rating")
                     );
                 } else {
                     System.out.println("The Driver ID is NotFound !!");
@@ -161,7 +162,8 @@ public class RetrieveFromDatabase {
                                 rS.getString("phone"),
                                 rS.getInt("driverID"),
                                 rS.getInt("number_of_trips"),
-                                rS.getBoolean("have_car") );
+                                rS.getBoolean("have_car"),
+                                rS.getDouble("rating"));
                         driverList.add(driver);
                     }
                 }
@@ -190,7 +192,7 @@ public class RetrieveFromDatabase {
                         Trip trip = new Trip(rS.getInt("tripID"), rS.getString("pickup_point"),
                                 rS.getString("destination"), rS.getTimestamp("trip_time").toLocalDateTime(),
                                 rS.getDouble("trip_price"), rS.getBoolean("is_finished"),
-                                PaymentFactory.getPaymentMethod("payment_method"), rS.getInt("customerID"));
+                                rS.getString("payment_method"), rS.getInt("customerID"));
                         trips.add(trip);
                     }
                 }
@@ -219,7 +221,7 @@ public class RetrieveFromDatabase {
                         Trip trip = new Trip(rS.getInt("tripID"), rS.getInt("driverID"), rS.getString("pickup_point"),
                                 rS.getString("destination"), rS.getTimestamp("trip_time").toLocalDateTime(),
                                 rS.getDouble("trip_price"),
-                                PaymentFactory.getPaymentMethod("payment_method"), rS.getBoolean("is_finished"));
+                                rS.getString("payment_method"), rS.getBoolean("is_finished"));
                         trips.add(trip);
                     }
                 }

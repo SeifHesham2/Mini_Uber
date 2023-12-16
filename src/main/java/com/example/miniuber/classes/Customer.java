@@ -25,12 +25,12 @@ public class Customer extends Person {
     }
 
     public static Boolean RequestTrip(String pickupPoint, String destination, String tripTime, double tripPrice,
-                                      PaymentStrategy paymentStrategy, int customerID) throws SQLException {
+                                      String type, int customerID) throws SQLException {
         Trip trip = new Trip();
         trip.setPickupPoint(pickupPoint);
         trip.setDestination(destination);
         trip.setTripPrice(tripPrice);
-        trip.setPaymentMethod(paymentStrategy);
+        trip.setPaymentMethod(type);
         trip.setCustomerID(customerID);
         trip.setTripTime(tripTime);
 
@@ -42,6 +42,13 @@ public class Customer extends Person {
         }
         else
             return false;
+    }
+
+    public static Boolean RateDriver(int driverID, int rating) throws SQLException {
+        Driver driver = RetrieveFromDatabase.retrieveDriver(driverID);
+        Boolean valid = UpdateDataBase.UpdateDriverRating(driver, driverID, rating);
+
+        return valid;
     }
 
     public static Boolean SendComplaint(String description, int tripId, int customerID, Label errorLabel) throws SQLException {

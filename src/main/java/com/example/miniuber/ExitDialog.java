@@ -37,14 +37,6 @@ public class ExitDialog {
         }
     }
     public static void showTripConfirmation(Window owner, int driverID, Trip trip, ObservableList<Trip> data1, ObservableList<Trip> data2, Label successLabel1) {
-        String paymentMethod = "";
-        if (trip.getPaymentMethod() instanceof Visa)
-            paymentMethod = "Visa";
-        else if(trip.getPaymentMethod() instanceof Paypal)
-            paymentMethod = "Paypal";
-        else if(trip.getPaymentMethod() instanceof Cash)
-            paymentMethod = "Cash";
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedTripTime = trip.getTripTime().format(formatter);
 
@@ -69,7 +61,7 @@ public class ExitDialog {
                 tripTimeText,
                 new Text("" + formattedTripTime),
                 paymentMethodText,
-                new Text("" + paymentMethod)
+                new Text("" + trip.getType())
         );
 
         // Show a confirmation alert
@@ -95,7 +87,7 @@ public class ExitDialog {
                     Driver driver = RetrieveFromDatabase.retrieveDriver(driverID);
                     Driver.AcceptTrip(driver, trip.getTripID());
                     data1.remove(trip);
-                    data2.add(new Trip(trip.getTripID(), trip.getDestination(), trip.getPickupPoint(), trip.getTripTime(), trip.getTripPrice(), trip.getPaymentMethod(), trip.isFinished()));
+                    data2.add(new Trip(trip.getTripID(), trip.getDestination(), trip.getPickupPoint(), trip.getTripTime(), trip.getTripPrice(), trip.getType(), trip.isFinished()));
                     successLabel1.setText("Trip assigned successfully.");
                     UpdateDataBase.UpdateDriverNumberOfTrips(driver.getId(), driver.getNumberOfTrips());
                 } catch (SQLException e) {

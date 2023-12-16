@@ -104,6 +104,29 @@ public class UpdateDataBase {
         }
     }
 
+    public static Boolean UpdateDriverRating(Driver driver, int driverID, double rating) throws SQLException {
+        Connection connection = dataBaseConnector.connectToDatabase();
+
+        try {
+            String sql = "UPDATE drivers SET rating = ? WHERE driverID = ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setDouble(1, (driver.getRating() + rating) / driver.getNumberOfTrips());
+                statement.setInt(2, driverID);
+                int rowsUpdated = statement.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("Driver rating updated successfully!");
+                    return true;
+                } else {
+                    System.out.println("Failed to update driver rating.");
+                    return false;
+                }
+            }
+        } finally {
+            dataBaseConnector.closeConnection();
+        }
+    }
+
     public static void UpdateDriverNumberOfTrips(int driverID, int numberOfTrips) throws SQLException {
         Connection connection = dataBaseConnector.connectToDatabase();
 

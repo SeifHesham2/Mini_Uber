@@ -16,6 +16,6 @@ public class Paypal extends PaymentStrategy {
 
     @Override
     public String getType() {
-        return "Paypal";
+        return "PayPal";
     }
 }

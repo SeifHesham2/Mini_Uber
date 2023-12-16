@@ -23,6 +23,7 @@
                 <Button layoutX="15.0" layoutY="253.0" mnemonicParsing="false" onAction="#showPanel2" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Send Complaint" textFill="WHITE" />
                 <Button layoutX="15.0" layoutY="335.0" mnemonicParsing="false" onAction="#showPanel3" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Book Trip" textFill="WHITE" />
                 <Button layoutX="15.0" layoutY="417.0" mnemonicParsing="false" onAction="#showPanel5" prefHeight="34.0" prefWidth="227.0" style="-fx-font: 14; -fx-background-color: #00A82D; -fx-background-radius: 20; -fx-padding: 8 16;" text="Update Personal Information" textFill="WHITE" />
+                <Button layoutX="15.0" layoutY="415.0" mnemonicParsing="false" onAction="#showPanel4" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Rate The Driver" textFill="WHITE" />
                 <Button layoutX="15.0" layoutY="499.0" mnemonicParsing="false" onAction="#redirectToLogin" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Sign Out" textFill="WHITE" />
                 <ImageView fitHeight="138.0" fitWidth="125.0" layoutX="67.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -112,6 +113,21 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
+            </Pane>
+
+            <Pane fx:id="panel4" onKeyPressed="#handleKeyPress3" style="-fx-background-color: #FFFFFF;" visible="false">
+                <ImageView fitHeight="166.0" fitWidth="247.0" layoutX="238.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/8582990-removebg-preview.png" />
+                    </image>
+                </ImageView>
+                <TextField fx:id="driverIDRateField" layoutX="297.0" layoutY="298.0" promptText="Driver ID" />
+                <TextField fx:id="rateField" layoutX="350.0" layoutY="340.0" prefHeight="26.0" prefWidth="43.0" promptText="Rate" />
+                <Button fx:id="rateButton" layoutX="258.0" layoutY="383.0" mnemonicParsing="false" onAction="#Rate" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Rate" textFill="WHITE" />
+                <!-- Add a label for displaying error messages -->
+                <Label fx:id="errorLabel3" alignment="CENTER" layoutX="270.0" layoutY="425.0" style="-fx-font-weight: bold;" textFill="red" />
+                <!-- Add a label for displaying successful messages -->
+                <Label fx:id="successLabel3" alignment="CENTER" layoutX="305.0" layoutY="425.0" style="-fx-font-weight: bold;" textFill="green" />
             </Pane>
 
             <Pane fx:id="panel5" onKeyPressed="#handleKeyPress4" style="-fx-background-color: #FFFFFF;" visible="false">
