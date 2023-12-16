@@ -276,6 +276,7 @@ public class DriverDashboardController {
         emailField.setText(driver.getEmail());
         phoneField.setText(driver.getPhone());
         passwordField.setText(driver.getPassword());
+        successLabel1.setText("");
     }
 
     @FXML

@@ -83,16 +83,6 @@ public class CustomerDashboardController {
     @FXML
     private Button bookTripButton;
     @FXML
-    private TextField tripIDRateField;
-    @FXML
-    private TextField rateField;
-    @FXML
-    private Button rateButton;
-    @FXML
-    private Label errorLabel3;
-    @FXML
-    private Label successLabel3;
-    @FXML
     private TextField firstNameField;
     @FXML
     private TextField lastNameField;
@@ -113,12 +103,14 @@ public class CustomerDashboardController {
     @FXML
     private TextField dummyTextField2;
     @FXML
-    private TextField dummyTextField3;
-    @FXML
     private TextField dummyTextField4;
     private Stage stage;
     private Scene scene;
     protected int customerID;
+    private String pickup;
+    private String destination;
+    private String time;
+    private double price;
     Customer customer = RetrieveFromDatabase.retrieveCustomer(customerID);
     public void initialize(int customerID) throws SQLException {
         this.customerID = customerID;
@@ -128,7 +120,6 @@ public class CustomerDashboardController {
         // Set focus to the dummyTextField
         dummyTextField.requestFocus();
         dummyTextField2.requestFocus();
-        dummyTextField3.requestFocus();
         dummyTextField4.requestFocus();
 
         // Set user information in the text fields
@@ -143,9 +134,6 @@ public class CustomerDashboardController {
         emailField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel4, successLabel4, 270.0, 282.0));
         passwordField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel4, successLabel4, 270.0, 282.0));
         phoneField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel4, successLabel4, 270.0, 282.0));
-
-        tripIDRateField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel3, successLabel3, 270, 305));
-        rateField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel3, successLabel3, 270, 305));
 
         pickupField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 275, 300));
         destinationField.setOnMouseClicked(event -> HandlingErrors.hideBothLabels(errorLabel2, successLabel2, 275, 300));
@@ -228,7 +216,8 @@ public class CustomerDashboardController {
                 Boolean done = Customer.RequestTrip(pickupField.getText(), destinationField.getText(), timeField.getText(), Integer.parseInt(priceField.getText()), PaymentFactory.getPaymentMethod(paymentMethodCombo.getValue()), customerID);
                 if(done)
                 {
-                    redirectToPayment(e);
+                    if(paymentMethodCombo.getValue().equalsIgnoreCase("Visa") || paymentMethodCombo.getValue().equalsIgnoreCase("Paypal"))
+                        redirectToPayment(e);
                     successLabel2.setText("Trip booked successfully!");
                     dummyTextField2.requestFocus();
                     clearAllTextFields();
@@ -249,41 +238,6 @@ public class CustomerDashboardController {
         List<Trip> tripList = Customer.PreviousTripsDetails(customerID);
         // Set data to the table
         tableViewInPanel1.getItems().addAll(tripList);
-    }
-
-    public void Rate(ActionEvent e) throws SQLException
-    {
-        HandlingErrors.hideBothLabels(errorLabel3, successLabel3, 270, 305);
-        if(validateFields3())
-        {
-            if(validateCriteria3(errorLabel3))
-            {
-                int customerid = RetrieveFromDatabase.retrieveTrip(Integer.parseInt(tripIDRateField.getText()));
-                if(customerid != customerID)
-                {
-                    System.out.println("You don't have this trip in your account.");
-                    errorLabel3.setLayoutX(270.0);
-                    errorLabel3.setText("You don't have this trip in your account.");
-                }
-                else
-                {
-                    Boolean done = Customer.RateDriver(Integer.parseInt(tripIDRateField.getText()), Integer.parseInt(rateField.getText()));
-                    if(done)
-                    {
-                        successLabel3.setText("Rate added successfully!");
-                        dummyTextField3.requestFocus();
-                        clearAllTextFields();
-                    }
-                    else
-                    {
-                        errorLabel3.setLayoutX(310.0);
-                        errorLabel3.setText("An error has occurred.");
-                    }
-                }
-            }
-        }
-        else
-            errorLabel3.setText("Please fill all the data and try again.");
     }
 
     public void updateInfo(ActionEvent e) throws SQLException
@@ -326,13 +280,6 @@ public class CustomerDashboardController {
         }
     }
 
-    public void handleKeyPress3(javafx.scene.input.KeyEvent event) throws SQLException {
-        if (event.getCode() == KeyCode.ENTER) {
-            // Trigger loginButton action
-            Rate(new ActionEvent(rateButton, null));
-        }
-    }
-
     public void handleKeyPress4(javafx.scene.input.KeyEvent event) throws SQLException {
         if (event.getCode() == KeyCode.ENTER) {
             // Trigger loginButton action
@@ -353,8 +300,6 @@ public class CustomerDashboardController {
         destinationField.clear();
         timeField.clear();
         priceField.clear();
-        tripIDRateField.clear();
-        rateField.clear();
     }
 
     private boolean validateFields() {
@@ -381,12 +326,6 @@ public class CustomerDashboardController {
                 && !emailField.getText().trim().isEmpty()
                 && !phoneField.getText().trim().isEmpty()
                 && !passwordField.getText().trim().isEmpty();
-    }
-
-    private boolean validateFields3() {
-        // Check if all required fields are filled in
-        return !tripIDRateField.getText().trim().isEmpty()
-                && !rateField.getText().trim().isEmpty();
     }
 
     private boolean validateCriteria2(Label errorLabel2)
@@ -417,36 +356,6 @@ public class CustomerDashboardController {
         }
     }
 
-    private boolean validateCriteria3(Label errorLabel3)
-    {
-        if(tripIDRateField.getText().matches("\\d+"))
-        {
-            if(rateField.getText().matches("\\d+"))
-            {
-                if(Integer.parseInt(rateField.getText()) >= 1 && Integer.parseInt(rateField.getText()) <= 5)
-                    return true;
-                else
-                {
-                    errorLabel3.setLayoutX(270.0);
-                    errorLabel3.setText("Please enter a rate number from 1 to 5.");
-                    return false;
-                }
-            }
-            else
-            {
-                errorLabel3.setLayoutX(270.0);
-                errorLabel3.setText("Please enter a rate number from 1 to 5.");
-                return false;
-            }
-        }
-        else
-        {
-            errorLabel3.setLayoutX(290);
-            errorLabel3.setText("Please enter a valid trip ID.");
-            return false;
-        }
-    }
-
     private boolean isValidDateTimeFormat(String dateTime) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -471,14 +380,18 @@ public class CustomerDashboardController {
         }
     }
 
-
+    public void restoreState() {
+        pickupField.setText(pickup);
+        destinationField.setText(destination);
+        timeField.setText(time);
+        priceField.setText(String.valueOf(price));
+    }
 
     public void showPanel1(ActionEvent e) throws IOException
     {
         panel1.setVisible(true);
         panel2.setVisible(false);
         panel3.setVisible(false);
-        panel4.setVisible(false);
         panel5.setVisible(false);
         panel6.setVisible(false);
 
@@ -489,7 +402,6 @@ public class CustomerDashboardController {
         panel1.setVisible(false);
         panel2.setVisible(true);
         panel3.setVisible(false);
-        panel4.setVisible(false);
         panel5.setVisible(false);
         panel6.setVisible(false);
 
@@ -500,19 +412,6 @@ public class CustomerDashboardController {
         panel1.setVisible(false);
         panel2.setVisible(false);
         panel3.setVisible(true);
-        panel4.setVisible(false);
-        panel5.setVisible(false);
-        panel6.setVisible(false);
-
-        clearAllTextFields();
-    }
-
-    public void showPanel4(ActionEvent e) throws IOException
-    {
-        panel1.setVisible(false);
-        panel2.setVisible(false);
-        panel3.setVisible(false);
-        panel4.setVisible(true);
         panel5.setVisible(false);
         panel6.setVisible(false);
 
@@ -524,11 +423,17 @@ public class CustomerDashboardController {
         panel1.setVisible(false);
         panel2.setVisible(false);
         panel3.setVisible(false);
-        panel4.setVisible(false);
         panel5.setVisible(true);
         panel6.setVisible(false);
 
         clearAllTextFields();
+    }
+
+    private void storeState() {
+        pickup = pickupField.getText();
+        destination = destinationField.getText();
+        time = timeField.getText();
+        price = Integer.parseInt(priceField.getText());
     }
 
     @FXML
@@ -543,13 +448,15 @@ public class CustomerDashboardController {
     @FXML
     private void redirectToPayment(ActionEvent e) throws IOException
     {
+        storeState();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Payment.fxml"));
         scene = new Scene(fxmlLoader.load(), 645, 500);
 
         PaymentController paymentController = fxmlLoader.getController();
-        paymentController.initialize(customerID);
+        paymentController.initialize(customerID, (Stage) ((Node) e.getSource()).getScene().getWindow());
 
-        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        stage = new Stage();
+        stage.initOwner(bookTripButton.getScene().getWindow());
         stage.setScene(scene);
         stage.showAndWait();
     }

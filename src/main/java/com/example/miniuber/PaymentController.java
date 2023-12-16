@@ -7,6 +7,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -49,10 +50,9 @@ public class PaymentController {
     private Stage stage;
     private Scene scene;
     protected int customerID;
-    @FXML
-    private AnchorPane myAnchorPane;
-    public void initialize(int customerID) {
+    public void initialize(int customerID, Stage stage) {
         this.customerID = customerID;
+        this.stage = stage;
 
         dummyTextField.requestFocus();
 
@@ -76,7 +76,13 @@ public class PaymentController {
             if(HandlingErrors.validateEmailPhoneCriteria(phone, emailField, errorLabel) && validateCVVAndCardNumber())
             {
                 YearMonth yearMonth = parseYearMonth(expirationDateField.getText());
-                if (yearMonth != null && isValidDate(expirationDateField))
+                if(yearMonth != null)
+                {
+                    System.out.println("Invalid input format");
+                    errorLabel.setLayoutX(55);
+                    errorLabel.setText("Please enter a valid MM/YY format.");
+                }
+                else if (isValidDate(expirationDateField))
                 {
                     System.out.println("Parsed YearMonth: " + yearMonth);
 
@@ -87,11 +93,11 @@ public class PaymentController {
                         payment = new Visa(cardNumberField.getText(), CVVField.getText(), yearMonth, customerID);
 
                     Boolean done = InsertToDatabase.InsertPayment(payment);
+                    done = true;
                     if(done)
                     {
                         dummyTextField.requestFocus();
                         updateLabelWithDelay(successLabel, () -> {
-                            stage.close();  // Move the scene transition inside the callback
                         });
                     }
                     else
@@ -99,12 +105,6 @@ public class PaymentController {
                         errorLabel.setLayoutX(90);
                         errorLabel.setText("An error has occurred.");
                     }
-                }
-                else
-                {
-                    System.out.println("Invalid input format");
-                    errorLabel.setLayoutX(55);
-                    errorLabel.setText("Please enter a valid MM/YY format.");
                 }
             }
         }
@@ -170,7 +170,8 @@ public class PaymentController {
         );
 
         timeline.setOnFinished(event -> {
-            // Add any logic to be executed after the label is shown for 3 seconds
+            onComplete.run();
+            submitPaymentButton.getScene().getWindow().hide();
         });
 
         timeline.play();
@@ -215,6 +216,7 @@ public class PaymentController {
             return false;
         }
     }
+
     private boolean validateCVVAndCardNumber() {
         // Validate CVV (3 digits)
         if (!CVVField.getText().replaceAll("\\s+","").matches("\\d{3}")) {
