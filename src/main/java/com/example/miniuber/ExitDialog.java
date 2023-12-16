@@ -26,7 +26,7 @@ public class ExitDialog {
         alert.setContentText("Are you sure you want to continue?");
 
         // Set the custom icon for the dialog
-        Image icon = new Image("file:F:/ASU/7TH SEMESTER/Software Design Patterns/MiniUber/src/main/resources/com/example/images/img.png");
+        Image icon = new Image("file:F:/ASU/7TH SEMESTER/Software Design Patterns/Project/Mini_Uber/src/main/resources/com/example/images/uber-logo-png-0.png");
         ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(icon);
 
         Optional<ButtonType> result = alert.showAndWait();
@@ -75,7 +75,7 @@ public class ExitDialog {
         // Show a confirmation alert
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         // Set the custom icon for the dialog
-        Image icon = new Image("file:F:/ASU/7TH SEMESTER/Software Design Patterns/MiniUber/src/main/resources/com/example/images/img.png");
+        Image icon = new Image("file:F:/ASU/7TH SEMESTER/Software Design Patterns/Project/Mini_Uber/src/main/resources/com/example/images/uber-logo-png-0.png");
         ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(icon);
 
         alert.setTitle("Trip Details Confirmation");

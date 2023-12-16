@@ -473,7 +473,7 @@ public class CustomerDashboardController implements PaymentCallback {
 
 
         stage = new Stage();
-        Image icon = new Image("file:F:/ASU/7TH SEMESTER/Software Design Patterns/MiniUber/src/main/resources/com/example/images/img.png");
+        Image icon = new Image("file:F:/ASU/7TH SEMESTER/Software Design Patterns/Project/Mini_Uber/src/main/resources/com/example/images/uber-logo-png-0.png");
         stage.getIcons().add(icon);
         stage.setResizable(false);
         stage.initOwner(bookTripButton.getScene().getWindow());
