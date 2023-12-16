@@ -169,6 +169,7 @@ public class PaymentController {
         timeline.setOnFinished(event -> {
             onComplete.run();
             submitPaymentButton.getScene().getWindow().hide();
+            //
         });
 
         timeline.play();
