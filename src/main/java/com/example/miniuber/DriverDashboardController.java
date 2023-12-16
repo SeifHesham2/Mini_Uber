@@ -49,7 +49,7 @@ public class DriverDashboardController {
     @FXML
     private TableColumn<Trip, Double> priceColumn;
     @FXML
-    private TableColumn<Trip, PaymentMethod> paymentTypeColumn;
+    private TableColumn<Trip, PaymentStrategy> paymentTypeColumn;
     @FXML
     private TableColumn<Trip, Boolean> isFinished;
     private ObservableList<Trip> data = FXCollections.observableArrayList(); // YourDataType should be a class representing your data
@@ -71,7 +71,7 @@ public class DriverDashboardController {
     @FXML
     private TableColumn<Trip, Double> priceColumn1;
     @FXML
-    private TableColumn<Trip, PaymentMethod> paymentTypeColumn1;
+    private TableColumn<Trip, PaymentStrategy> paymentTypeColumn1;
     private ObservableList<Trip> data1 = FXCollections.observableArrayList(); // YourDataType should be a class representing your data
     @FXML
     private TextField firstNameField;

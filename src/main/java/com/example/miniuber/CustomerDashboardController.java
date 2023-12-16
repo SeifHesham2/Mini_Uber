@@ -17,9 +17,7 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -50,7 +48,7 @@ public class CustomerDashboardController {
     @FXML
     private TableColumn<Trip, Double> priceColumn;
     @FXML
-    private TableColumn<Trip, PaymentMethod> paymentTypeColumn;
+    private TableColumn<Trip, PaymentStrategy> paymentTypeColumn;
     @FXML
     private TableColumn<Trip, Boolean> isFinished;
     @FXML

@@ -2,7 +2,7 @@ package com.example.miniuber.classes;
 
 public class PaymentFactory
 {
-    public static PaymentMethod getPaymentMethod(String PaymentType) {
+    public static PaymentStrategy getPaymentMethod(String PaymentType) {
         if(PaymentType.equalsIgnoreCase("visa")){
             return  new Visa();
         }
@@ -12,9 +12,6 @@ public class PaymentFactory
         else if (PaymentType.equalsIgnoreCase("Cash")){
             return  new Cash();
         }
-        else {
-            //throw new IllegalArgumentException("this PaymentMethod is not supported yet !");
-            return null;
-        }
+        else return null;
     }
 }

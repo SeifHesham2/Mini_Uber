@@ -3,8 +3,6 @@ package com.example.miniuber;
 import com.example.miniuber.classes.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -14,7 +12,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -86,7 +83,7 @@ public class PaymentController {
                 {
                     System.out.println("Parsed YearMonth: " + yearMonth);
 
-                    PaymentMethod payment = null;
+                    PaymentStrategy payment = null;
                     if(paypalRadio.isSelected())
                         payment = new Paypal(cardNumberField.getText(), CVVField.getText(), yearMonth, customerID);
                     else if(visaRadio.isSelected())

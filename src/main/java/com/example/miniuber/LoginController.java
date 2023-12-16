@@ -1,10 +1,7 @@
 package com.example.miniuber;
 
 
-import com.example.miniuber.classes.Customer;
-import com.example.miniuber.classes.Driver;
-import com.example.miniuber.classes.Employee;
-import com.example.miniuber.classes.Login;
+import com.example.miniuber.classes.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,41 +34,39 @@ public class LoginController {
 
     public void Login(ActionEvent e) throws IOException, SQLException {
         HandlingErrors.hideErrorLabel(errorLabel, 46);
-        Driver driver = Login.DriverLogin(emailField.getText(), passwordField.getText());
-        Customer customer = Login.CustomerLogin(emailField.getText(), passwordField.getText());
-        Employee employee = Login.EmployeeLogin(emailField.getText(), passwordField.getText());
+        Person person = LoginProxy.PersonLogin(emailField.getText(), passwordField.getText());
 
-        if(driver != null)
+        if(person instanceof Driver )
         {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("driverDashboard.fxml"));
             scene = new Scene(fxmlLoader.load(), 988, 576);
 
             DriverDashboardController driverDashboardController = fxmlLoader.getController();
-            driverDashboardController.initialize(driver.getId());
+            driverDashboardController.initialize(person.getId());
 
             stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
         }
-        else if(customer != null)
+        else if(person instanceof Customer)
         {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("customerDashboard.fxml"));
             scene = new Scene(fxmlLoader.load(), 988, 576);
 
             CustomerDashboardController customerDashboardController = fxmlLoader.getController();
-            customerDashboardController.initialize(customer.getId());
+            customerDashboardController.initialize(person.getId());
 
             stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
         }
-        else if(employee != null)
+        else if(person instanceof Employee)
         {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("employeeDashboard.fxml"));
             scene = new Scene(fxmlLoader.load(), 988, 576);
 
             EmployeeDashboardController employeeDashboardController = fxmlLoader.getController();
-            employeeDashboardController.initialize(employee.getId());
+            employeeDashboardController.initialize(person.getId());
 
             stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);

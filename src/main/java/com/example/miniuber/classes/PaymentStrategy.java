@@ -2,7 +2,7 @@ package com.example.miniuber.classes;
 
 import java.time.YearMonth;
 
-public abstract class PaymentMethod {
+public abstract class PaymentStrategy {
     private int cardID;
     private String cardNumber;
     private String cvv;
@@ -11,15 +11,16 @@ public abstract class PaymentMethod {
 
     public abstract String getType();
 
-    public PaymentMethod() {
+    public PaymentStrategy() {
     }
 
-    public PaymentMethod(String cardNumber, String cvv, YearMonth expirationDate, int customerID) {
+    public PaymentStrategy(String cardNumber, String cvv, YearMonth expirationDate, int customerID) {
         this.cardNumber = cardNumber;
         this.cvv = cvv;
         this.expirationDate = expirationDate;
         this.customerID = customerID;
     }
+    public  abstract double totalPayment(double price);
 
     public String getCardNumber() {
         return cardNumber;

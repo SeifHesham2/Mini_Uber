@@ -188,7 +188,7 @@ public class InsertToDatabase {
         return false;
     }
 
-    public static Boolean InsertPayment(PaymentMethod payment) throws SQLException {
+    public static Boolean InsertPayment(PaymentStrategy payment) throws SQLException {
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
             String sql = "INSERT INTO payment (customerid , cardnumber , expiration_date , cvv , type) VALUES ( ? , ? , ? , ? , ?)";
