@@ -44,6 +44,7 @@ public class Employee extends Person {
         if (specificCar == null)
         {
             System.out.println("Invalid CarID. Car not found.");
+            errorLabel4.setLayoutX(280);
             errorLabel4.setText("Invalid CarID. Car not found.");
             return false;
         }
@@ -183,7 +184,7 @@ public class Employee extends Person {
         {
             errorLabel5.setLayoutX(215);
             errorLabel5.setText("There are insufficient cars compared to number of drivers.");
-            successLabel5.setLayoutY(400);
+            successLabel5.setLayoutY(425);
             successLabel5.setText("But all available cars assigned to drivers.");
             System.out.println("You need to Add cars To The system");
         }

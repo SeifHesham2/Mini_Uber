@@ -271,6 +271,7 @@ public class EmployeeDashboardController {
     {
         HandlingErrors.hideBothLabels(errorLabel5, successLabel5, 262, 262);
         Employee.AssignCarToAllDrivers(errorLabel5, successLabel5);
+        refreshTableView2();
     }
 
     private void clearAllTextFields() {

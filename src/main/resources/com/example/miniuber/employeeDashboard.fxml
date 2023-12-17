@@ -133,9 +133,9 @@
                 </ImageView>
                 <Button fx:id="assignCarsForAllButton" layoutX="252.0" layoutY="358.0" mnemonicParsing="false" onAction="#assignCarForAll" prefHeight="34.0" prefWidth="227.0" style="-fx-background-color: #00A82D; -fx-background-radius: 20;" text="Assign Cars For All The Drivers" textFill="WHITE" />
                 <!-- Add a label for displaying error messages -->
-                <Label fx:id="errorLabel5" alignment="CENTER" layoutX="262.0" layoutY="375.0" style="-fx-font-weight: bold;" textFill="red" />
+                <Label fx:id="errorLabel5" alignment="CENTER" layoutX="262.0" layoutY="400.0" style="-fx-font-weight: bold;" textFill="red" />
                 <!-- Add a label for displaying successful messages -->
-                <Label fx:id="successLabel5" alignment="CENTER" layoutX="262.0" layoutY="375.0" style="-fx-font-weight: bold;" textFill="green" />
+                <Label fx:id="successLabel5" alignment="CENTER" layoutX="262.0" layoutY="400.0" style="-fx-font-weight: bold;" textFill="green" />
             </Pane>
             <Pane fx:id="panel4" onKeyPressed="#handleKeyPress2" style="-fx-background-color: #FFFFFF;" visible="false">
                 <TableView fx:id="tableViewInPanel4" layoutX="40.0" layoutY="45.0" prefHeight="419.0" prefWidth="651.0">
