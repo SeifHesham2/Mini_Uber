@@ -29,11 +29,10 @@ public class Employee extends Person {
         return InsertToDatabase.InsertCar(newCar);
     }
 
-    public static Boolean RegisterDriver(String firstName, String lastName, String email, String password, String phone) throws SQLException {
+    public static int RegisterDriver(String firstName, String lastName, String email, String password, String phone) throws SQLException {
         Driver driver = new Driver(firstName,lastName,email,password,phone);
-        Boolean valid = InsertToDatabase.InsertDriver(driver);
-        if(valid) return true;
-        else return false;
+        int valid = InsertToDatabase.InsertDriver(driver);
+        return valid;
     }
 
     public static Boolean AssignOrChangeCarToDriver(int driverID, int carID, boolean forChange, Label errorLabel4) throws SQLException

@@ -7,9 +7,10 @@ import java.time.YearMonth;
 public class InsertToDatabase {
     private static final DataBaseConnector dataBaseConnector = DataBaseConnector.getInstance();
 
-    public static Boolean InsertDriver(Driver driver) throws SQLException {
+    public static int InsertDriver(Driver driver) throws SQLException {
         Connection connection = dataBaseConnector.connectToDatabase();
         try {
+            int autoIncrementedID = 0;
             String sql = "INSERT INTO drivers (firstname , lastname , email , driver_password , phone) VALUES ( ? , ? , ? , ? , ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, driver.getFirstName());
@@ -22,7 +23,7 @@ public class InsertToDatabase {
                     if (rowsInserted > 0) {
                         try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                             if (generatedKeys.next()) {
-                                int autoIncrementedID = generatedKeys.getInt(1);
+                                autoIncrementedID = generatedKeys.getInt(1);
                                 System.out.println("Auto-incremented ID: " + autoIncrementedID);
                                 driver.setId(autoIncrementedID);
                             } else {
@@ -30,17 +31,17 @@ public class InsertToDatabase {
                             }
                         }
                         System.out.println("Driver inserted successfully!");
-                        return true;
+                        return autoIncrementedID;
                     }
                 } catch(SQLException e){
                     System.out.println("Failed to insert Driver.");
-                    return false;
+                    return 0;
                 }
             }
         } finally {
             dataBaseConnector.closeConnection();
         }
-        return false;
+        return 0;
     }
 
     public static Boolean InsertCustomer(Customer customer) throws SQLException {

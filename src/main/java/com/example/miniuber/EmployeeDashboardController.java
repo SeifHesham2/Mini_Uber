@@ -248,15 +248,15 @@ public class EmployeeDashboardController {
     public void registerDriver(ActionEvent e) throws SQLException
     {
         HandlingErrors.hideBothLabels(errorLabel3, successLabel3, 250, 289);
-        boolean done = false;
+        int driverID = 0;
         if(HandlingErrors.validateEmailPhoneCriteria(phoneField, emailField, errorLabel3))
         {
             if(validateFields2())
             {
-                done = Employee.RegisterDriver(firstNameField.getText(), lastNameField.getText(), emailField.getText(), passwordField.getText(), phoneField.getText());
-                if(done)
+                driverID = Employee.RegisterDriver(firstNameField.getText(), lastNameField.getText(), emailField.getText(), passwordField.getText(), phoneField.getText());
+                if(driverID > 0)
                 {
-                    successLabel3.setText("Driver added successfully.");
+                    successLabel3.setText("Driver (" + driverID + ") added successfully.");
                     dummyTextField2.requestFocus();
                     clearAllTextFields();
                     return;
