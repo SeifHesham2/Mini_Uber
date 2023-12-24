@@ -84,6 +84,6 @@ The project is organized into several modules, including:
 <br />
 
 #### Paying with credit page
-![alt text](project-imgs/8.png "Paying with credit page")
+![alt text](project-imgs/8.jpg "Paying with credit page")
 
 
